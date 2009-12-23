@@ -1,0 +1,56 @@
+!
+! Emulate the Lisp Machine using a dvorak keyboard.
+!
+! Alt, Altgr  	   -> Control
+! Win  	      	   -> Meta
+! Capslock	   -> Alt
+! Control right	   -> Altgr
+! Control left	   -> Hyper
+! Menu	  	   -> Super
+! <		   -> Escape
+! Escape	   -> Capslock
+!
+! Make it easy to type parentheses
+! 9(   -> 9?
+! 0)   -> 0|
+! /?   -> ([
+! =+   -> )]
+! [{   -> \{ 
+! ]}   -> /}
+! \|   -> =+
+!
+keycode  64 = Control_L NoSymbol Control_L NoSymbol Control_L
+keycode 113 = Control_R NoSymbol Control_R NoSymbol Control_R
+keycode 115 = Meta_L NoSymbol Meta_L NoSymbol Meta_L
+keycode 116 = Meta_R NoSymbol Meta_R NoSymbol Meta_R
+keycode  66 = Alt_L NoSymbol Alt_L NoSymbol Alt_L
+keycode 109 = Alt_R NoSymbol Alt_R NoSymbol Alt_R
+keycode  37 = Hyper_L NoSymbol Hyper_L NoSymbol Hyper_L
+keycode 117 = Super_R NoSymbol Super_R NoSymbol Super_R
+keycode  94 = Escape NoSymbol Escape NoSymbol Escape
+keycode   9 = Caps_Lock NoSymbol Caps_Lock NoSymbol Caps_Lock
+keycode  18 = 9 question 9 question dead_grave
+keycode  19 = 0 bar 0 bar 0 bar
+keycode  34 = parenleft bracketleft parenleft bracketleft parenleft bracketleft
+keycode  35 = parenright bracketright parenright bracketright parenright bracketright
+keycode  20 = backslash braceleft backslash braceleft backslash braceleft
+keycode  21 = slash braceright slash braceright slash braceright
+keycode  51 = equal plus equal plus equal plus 
+
+clear Shift
+clear Lock
+clear Control
+clear Mod1
+clear Mod2
+clear Mod3
+clear Mod4
+clear Mod5
+
+add   Shift	= Shift_L Shift_R
+add   Lock	= Caps_Lock
+add   Control	= Control_L Control_R
+add   Mod1	= Alt_L Alt_R Meta_L Meta_R
+add   Mod2	= Num_Lock
+add   Mod3	= Mode_switch
+add   Mod4	= Super_L Super_R
+add   Mod5	= Hyper_L Hyper_R
