@@ -11,7 +11,7 @@
 ;;;; Key bindings
 (global-set-key "\C-w" 'backward-kill-word)
 (global-set-key "\C-x\C-k" 'kill-region)
-(global-set-key "\C-h" 'backward-delete-char)
+(global-set-key "\C-h" 'backward-delete-char-untabify)
 (define-key isearch-mode-map "\C-h" 'isearch-delete-char)
 (global-set-key [(hyper h)] 'help-command)
 
