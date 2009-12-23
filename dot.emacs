@@ -1,6 +1,6 @@
  ;; -*-Emacs-Lisp-*-
 
-(add-to-list 'load-path "/home/l0stman/.emacs.d")
+(add-to-list 'load-path "/home/l0stman/.emacs.d/lib")
 
 (defun symb (&rest args)
   "Produce a symbol from the lisp objects."
