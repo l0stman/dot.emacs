@@ -9,6 +9,7 @@
      (dolist (x args) (princ x)))))
 
 ;;;; Key bindings
+(global-set-key "\C-m" 'reindent-then-newline-and-indent)
 (global-set-key "\C-w" 'backward-kill-word)
 (global-set-key "\C-x\C-k" 'kill-region)
 (global-set-key "\C-h" 'backward-delete-char-untabify)
