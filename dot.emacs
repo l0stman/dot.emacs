@@ -51,6 +51,11 @@
    (with-output-to-string
      (dolist (o args) (princ o)))))
 
+(defun defkeys (map &rest bindings)
+  "Define the bindings represented as property list in the key mapping."
+  (loop for plist on bindings by #'cddr
+	do (define-key map (car plist) (cadr plist))))
+
 (defvar *paredit-mode-list*
   '(lisp scheme emacs-lisp lisp-interaction slime-repl)
   "List of major mode using paredit.")
@@ -58,11 +63,11 @@
 (dolist (name *paredit-mode-list*)
   (add-hook (symb name '-mode-hook) '(lambda () (paredit-mode +1))))
 
-(eval-after-load "paredit" 
-  '(flet ((defkey (k sym) (define-key paredit-mode-map k sym)))
-     (defkey (kbd "C-t") 'transpose-sexps)
-     (defkey (kbd "C-M-t") 'transpose-chars)
-     (defkey (kbd "C-f") 'paredit-forward)
-     (defkey (kbd "C-M-f") 'forward-char)
-     (defkey (kbd "C-b") 'paredit-backward)
-     (defkey (kbd "C-M-b") 'backward-char)))
+(eval-after-load "paredit"
+  '(defkeys paredit-mode-map
+     (kbd "C-t") 'transpose-sexps
+     (kbd "C-M-t") 'transpose-chars
+     (kbd "C-f") 'paredit-forward
+     (kbd "C-M-f") 'forward-char
+     (kbd "C-b") 'paredit-backward
+     (kbd "C-M-b") 'backward-char))
