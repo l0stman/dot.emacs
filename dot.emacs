@@ -36,8 +36,7 @@
 ;;; Common Lisp
 (defvar *sbcl-core* (concat *emacs-dir* "/sbcl.core-with-swank"))
 
-(setq inferior-lisp-program "/usr/local/bin/sbcl"
-      slime-net-coding-system 'utf-8-unix
+(setq slime-net-coding-system 'utf-8-unix
       slime-lisp-implementations
       `((sbcl ("sbcl" "--core" ,*sbcl-core*)
 	      :init (lambda (port-file _)
