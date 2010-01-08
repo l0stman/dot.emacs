@@ -45,3 +45,15 @@
 (add-to-list 'load-path *slime-dir* (concat *slime-dir* "/contrib"))
 (require 'slime-autoloads)
 (slime-setup '(slime-repl))
+
+;;;; Paredit
+(autoload 'paredit-mode "paredit"
+  "Minor mode for pseudo-structurally editing Lisp code."
+  t)
+
+(defvar *paredit-mode-list*
+  '(lisp scheme emacs-lisp lisp-interaction slime-repl)
+  "List of major mode using paredit.")
+
+(dolist (name *paredit-mode-list*)
+  (add-hook (symb name '-mode-hook) (lambda () (paredit-mode +1))))
