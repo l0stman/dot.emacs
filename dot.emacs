@@ -29,8 +29,10 @@
 
 ;;; Common Lisp
 (defvar *sbcl-core* (concat *emacs-dir* "/sbcl.core-with-swank"))
+(defvar *hyperspec-dir* "/usr/local/share/doc/clisp-hyperspec/HyperSpec/")
 
 (setq slime-net-coding-system 'utf-8-unix
+      common-lisp-hyperspec-root *hyperspec-dir*
       slime-lisp-implementations
       `((sbcl ("sbcl" "--core" ,*sbcl-core*)
 	      :init (lambda (port-file _)
@@ -58,7 +60,7 @@
 
 (defvar *paredit-mode-list*
   '(lisp scheme emacs-lisp lisp-interaction slime-repl)
-  "List of major mode using paredit.")
+  "List of major modes using paredit.")
 
 (dolist (name *paredit-mode-list*)
   (add-hook (symb name '-mode-hook) '(lambda () (paredit-mode +1))))
@@ -70,4 +72,12 @@
      (kbd "C-f") 'paredit-forward
      (kbd "C-M-f") 'forward-char
      (kbd "C-b") 'paredit-backward
-     (kbd "C-M-b") 'backward-char))
+     (kbd "C-M-b") 'backward-char
+     (kbd "C-k") 'kill-sexp
+     (kbd "C-M-k") 'paredit-kill
+     (kbd "C-<backspace>") 'backward-kill-sexp))
+
+;;;; Misc
+(when (eq window-system 'x)
+  (setq browse-url-browser-function 'browse-url-firefox
+	browse-url-firefox-program "firefox3"))
