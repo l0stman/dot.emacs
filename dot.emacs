@@ -5,12 +5,6 @@
 
 (add-to-list 'load-path (concat *emacs-dir* "/lib"))
 
-(defun symb (&rest args)
-  "Produce a symbol from the lisp objects."
-  (intern
-   (with-output-to-string
-     (dolist (o args) (princ o)))))
-
 ;;;; Key bindings
 (global-set-key "\C-m" 'reindent-then-newline-and-indent)
 (global-set-key "\C-w" 'backward-kill-word)
@@ -26,9 +20,9 @@
 (load-library "color-theme-djcb-dark")
 
 (eval-after-load "color-theme-djcb-dark"
-  (progn
-    (color-theme-initialize)
-    (color-theme-djcb-dark)))
+  '(progn
+     (color-theme-initialize)
+     (color-theme-djcb-dark)))
 
 ;;;; SLIME configuration
 (defvar *slime-dir* "/usr/local/share/emacs/23.0.95/site-lisp/slime")
@@ -51,9 +45,24 @@
   "Minor mode for pseudo-structurally editing Lisp code."
   t)
 
+(defun symb (&rest args)
+  "Produce a symbol from the lisp objects."
+  (intern
+   (with-output-to-string
+     (dolist (o args) (princ o)))))
+
 (defvar *paredit-mode-list*
   '(lisp scheme emacs-lisp lisp-interaction slime-repl)
   "List of major mode using paredit.")
 
 (dolist (name *paredit-mode-list*)
-  (add-hook (symb name '-mode-hook) (lambda () (paredit-mode +1))))
+  (add-hook (symb name '-mode-hook) '(lambda () (paredit-mode +1))))
+
+(eval-after-load "paredit" 
+  '(flet ((defkey (k sym) (define-key paredit-mode-map k sym)))
+     (defkey (kbd "C-t") 'transpose-sexps)
+     (defkey (kbd "C-M-t") 'transpose-chars)
+     (defkey (kbd "C-f") 'paredit-forward)
+     (defkey (kbd "C-M-f") 'forward-char)
+     (defkey (kbd "C-b") 'paredit-backward)
+     (defkey (kbd "C-M-b") 'backward-char)))
