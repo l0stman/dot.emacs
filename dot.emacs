@@ -1,12 +1,15 @@
- ;; -*-Emacs-Lisp-*-
+;;;; -*-Emacs-Lisp-*-
 
-(add-to-list 'load-path "/home/l0stman/.emacs.d/lib")
+(defvar *emacs-dir* "/home/l0stman/.emacs.d"
+  "Emacs personal root directory.")
+
+(add-to-list 'load-path (concat *emacs-dir* "/lib"))
 
 (defun symb (&rest args)
   "Produce a symbol from the lisp objects."
   (intern
    (with-output-to-string
-     (dolist (x args) (princ x)))))
+     (dolist (o args) (princ o)))))
 
 ;;;; Key bindings
 (global-set-key "\C-m" 'reindent-then-newline-and-indent)
@@ -26,3 +29,20 @@
   (progn
     (color-theme-initialize)
     (color-theme-djcb-dark)))
+
+;;;; SLIME configuration
+(defvar *slime-dir* "/usr/local/share/emacs/23.0.95/site-lisp/slime")
+
+;;; Common Lisp
+(defvar *sbcl-core* (concat *emacs-dir* "/sbcl.core-with-swank"))
+
+(setq inferior-lisp-program "/usr/local/bin/sbcl"
+      slime-net-coding-system 'utf-8-unix
+      slime-lisp-implementations
+      `((sbcl ("sbcl" "--core" ,*sbcl-core*)
+	      :init (lambda (port-file _)
+		      (format "(swank:start-server %S)\n" port-file)))))
+
+(add-to-list 'load-path *slime-dir* (concat *slime-dir* "/contrib"))
+(require 'slime-autoloads)
+(slime-setup '(slime-repl))
