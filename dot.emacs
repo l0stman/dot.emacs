@@ -88,11 +88,10 @@ corresponding function in the key mapping (the global one if null)."
 	    `(lambda ()
 	       (paredit-mode +1)
 	       (define-key ,(symb name '-mode-map) (kbd "<tab>")
-		 (case major-mode
-		   ((emacs-lisp-mode lisp-interaction-mode)
-		    'lisp-complete-symbol)
-		   (lisp-mode 'slime-complete-symbol)
-		   (slime-repl-mode 'slime-indent-and-complete-symbol))))))
+		 (case ',name
+		   ((emacs-lisp lisp-interaction) 'lisp-complete-symbol)
+		   (lisp'slime-complete-symbol)
+		   (slime-repl 'slime-indent-and-complete-symbol))))))
 
 (eval-after-load "paredit"
   '(defkeys paredit-mode-map
