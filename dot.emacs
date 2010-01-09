@@ -20,12 +20,21 @@ corresponding function in the key mapping (the global one if null)."
 
 ;;;; Global key bindings
 (defkeys nil
+  ;; Meta
+  "M-g" goto-line
+  "M-n" next-error
+  "M-p" previous-error
+
+  ;; Hyper
+  "H-h" help-command
+  "H-s" slime-selector
+
+  ;; Misc
   "C-m" reindent-then-newline-and-indent
   "C-w" backward-kill-word
   "C-x C-k" kill-region
   "C-h" backward-delete-char-untabify
-  "H-h" help-command
-  "C-c s" slime-selector)
+  "C-x j" join-line)
 
 (define-key isearch-mode-map "\C-h" 'isearch-delete-char)
 
@@ -73,8 +82,17 @@ corresponding function in the key mapping (the global one if null)."
   '(lisp scheme emacs-lisp lisp-interaction slime-repl)
   "List of major modes using paredit.")
 
+;; Toggle paredit mode and bind <tab> to symbol completion.
 (dolist (name *paredit-mode-list*)
-  (add-hook (symb name '-mode-hook) '(lambda () (paredit-mode +1))))
+  (add-hook (symb name '-mode-hook) 
+	    `(lambda ()
+	       (paredit-mode +1)
+	       (define-key ,(symb name '-mode-map) (kbd "<tab>")
+		 (case major-mode
+		   ((emacs-lisp-mode lisp-interaction-mode)
+		    'lisp-complete-symbol)
+		   (lisp-mode 'slime-complete-symbol)
+		   (slime-repl-mode 'slime-indent-and-complete-symbol))))))
 
 (eval-after-load "paredit"
   '(defkeys paredit-mode-map
