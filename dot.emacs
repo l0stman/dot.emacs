@@ -5,13 +5,29 @@
 
 (add-to-list 'load-path (concat *emacs-dir* "/lib"))
 
-;;;; Key bindings
-(global-set-key "\C-m" 'reindent-then-newline-and-indent)
-(global-set-key "\C-w" 'backward-kill-word)
-(global-set-key "\C-x\C-k" 'kill-region)
-(global-set-key "\C-h" 'backward-delete-char-untabify)
+(require 'cl)	; Common Lisp library
+
+(defmacro defkeys (map &rest bindings)
+  "Define the bindings represented as property list of a key and the
+corresponding function in the key mapping (the global one if null)."
+  (eval-after-load "cl"
+    '`(progn
+	,@(loop for plist on bindings by #'cddr
+		collect (let ((key (car plist)) (fn (cadr plist)))
+			  (if map
+			      `(define-key ,map (kbd ,key) ',fn)
+			    `(global-set-key (kbd ,key) ',fn)))))))
+
+;;;; Global key bindings
+(defkeys nil
+  "C-m" reindent-then-newline-and-indent
+  "C-w" backward-kill-word
+  "C-x C-k" kill-region
+  "C-h" backward-delete-char-untabify
+  "H-h" help-command
+  "C-c s" slime-selector)
+
 (define-key isearch-mode-map "\C-h" 'isearch-delete-char)
-(global-set-key [(hyper h)] 'help-command)
 
 ;;; Treat 'y' or <CR> as yes, 'n' as no.
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -53,11 +69,6 @@
    (with-output-to-string
      (dolist (o args) (princ o)))))
 
-(defun defkeys (map &rest bindings)
-  "Define the bindings represented as property list in the key mapping."
-  (loop for plist on bindings by #'cddr
-	do (define-key map (car plist) (cadr plist))))
-
 (defvar *paredit-mode-list*
   '(lisp scheme emacs-lisp lisp-interaction slime-repl)
   "List of major modes using paredit.")
@@ -67,15 +78,15 @@
 
 (eval-after-load "paredit"
   '(defkeys paredit-mode-map
-     (kbd "C-t") 'transpose-sexps
-     (kbd "C-M-t") 'transpose-chars
-     (kbd "C-f") 'paredit-forward
-     (kbd "C-M-f") 'forward-char
-     (kbd "C-b") 'paredit-backward
-     (kbd "C-M-b") 'backward-char
-     (kbd "C-k") 'kill-sexp
-     (kbd "C-M-k") 'paredit-kill
-     (kbd "C-<backspace>") 'backward-kill-sexp))
+     "C-t" transpose-sexps
+     "C-M-t" transpose-chars
+     "C-f" paredit-forward
+     "C-M-f" forward-char
+     "C-b" paredit-backward
+     "C-M-b" backward-char
+     "C-k" kill-sexp
+     "C-M-k" paredit-kill
+     "C-<backspace>" backward-kill-sexp))
 
 ;;;; Misc
 (when (eq window-system 'x)
