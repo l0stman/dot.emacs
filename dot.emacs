@@ -21,10 +21,11 @@ corresponding function in the key mapping (the global one if null)."
 ;;;; Global key bindings
 (defkeys nil
   ;; Function keys
-  "<f1>" help-command
-  "<f2>" info
+  "<f1>" info
+  "<f2>" help-command
   "<f3>" compile
-  "<f4>" slime-selector
+  "<f4>" repeat-complex-command
+  "<f5>" slime-selector
   
   ;; Meta
   "M-g" goto-line
@@ -34,6 +35,7 @@ corresponding function in the key mapping (the global one if null)."
   ;; Hyper
   "H-h" help-command
   "H-s" slime-selector
+  "H-r" query-replace
 
   ;; Misc
   "C-m" reindent-then-newline-and-indent
@@ -64,6 +66,7 @@ corresponding function in the key mapping (the global one if null)."
 
 (setq slime-net-coding-system 'utf-8-unix
       common-lisp-hyperspec-root *hyperspec-dir*
+      slime-complete-symbol-function 'slime-fuzzy-complete-symbol
       slime-lisp-implementations
       `((sbcl ("sbcl" "--core" ,*sbcl-core*)
 	      :init (lambda (port-file _)
@@ -71,7 +74,7 @@ corresponding function in the key mapping (the global one if null)."
 
 (add-to-list 'load-path *slime-dir* (concat *slime-dir* "/contrib"))
 (require 'slime-autoloads)
-(slime-setup '(slime-repl))
+(slime-setup '(slime-repl slime-autodoc))
 
 ;;;; Paredit
 (autoload 'paredit-mode "paredit"
@@ -122,7 +125,15 @@ corresponding function in the key mapping (the global one if null)."
 (add-hook 'lisp-interaction-mode-hook
 	  '(lambda ()
 	     (defkeys lisp-interaction-mode-map "C-m" eval-print-last-sexp)))
+
+;;; Make SLIME connect to lisp when opening a lisp file
+(add-hook 'slime-mode-hook
+	  '(lambda ()
+	     (unless (slime-connected-p)
+	       (save-excursion (slime)))))
+
 ;;;; Misc
+(setq show-trailing-whitespace t)
 (when (eq window-system 'x)
   (setq browse-url-browser-function 'browse-url-firefox
 	browse-url-firefox-program "firefox3"))
