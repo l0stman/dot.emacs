@@ -74,7 +74,7 @@ corresponding function in the key mapping (the global one if null)."
 
 (add-to-list 'load-path *slime-dir* (concat *slime-dir* "/contrib"))
 (require 'slime-autoloads)
-(slime-setup '(slime-repl slime-autodoc))
+(slime-setup '(slime-repl slime-autodoc slime-fuzzy))
 
 ;;;; Paredit
 (autoload 'paredit-mode "paredit"
@@ -132,8 +132,17 @@ corresponding function in the key mapping (the global one if null)."
 	     (unless (slime-connected-p)
 	       (save-excursion (slime)))))
 
+;;; SLIME repl mode
+(add-hook 'slime-repl-mode-hook
+	  '(lambda ()
+	     (defkeys slime-repl-mode-map
+	       "C-c s" slime-repl-next-matching-input
+	       "C-c r" slime-repl-previous-matching-input)))
+
 ;;;; Misc
 (setq show-trailing-whitespace t)
 (when (eq window-system 'x)
   (setq browse-url-browser-function 'browse-url-firefox
-	browse-url-firefox-program "firefox3"))
+	browse-url-firefox-program "firefox3")
+  ;; start an emacs server
+  (server-start))
