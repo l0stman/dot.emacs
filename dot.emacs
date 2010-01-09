@@ -111,6 +111,17 @@ corresponding function in the key mapping (the global one if null)."
      "C-M-k" paredit-kill
      "C-<backspace>" backward-kill-sexp))
 
+;;;; Adding some hooks.
+;;; C mode
+(add-hook 'c-mode-hook
+	  '(lambda ()
+	     (c-set-style "bsd")
+	     (c-toggle-auto-newline)))
+
+;;; Interaction Lisp mode
+(add-hook 'lisp-interaction-mode-hook
+	  '(lambda ()
+	     (defkeys lisp-interaction-mode-map "C-m" eval-print-last-sexp)))
 ;;;; Misc
 (when (eq window-system 'x)
   (setq browse-url-browser-function 'browse-url-firefox
