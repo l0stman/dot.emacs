@@ -20,6 +20,12 @@ corresponding function in the key mapping (the global one if null)."
 
 ;;;; Global key bindings
 (defkeys nil
+  ;; Function keys
+  "<f1>" help-command
+  "<f2>" info
+  "<f3>" compile
+  "<f4>" slime-selector
+  
   ;; Meta
   "M-g" goto-line
   "M-n" next-error
@@ -90,7 +96,7 @@ corresponding function in the key mapping (the global one if null)."
 	       (define-key ,(symb name '-mode-map) (kbd "<tab>")
 		 (case ',name
 		   ((emacs-lisp lisp-interaction) 'lisp-complete-symbol)
-		   (lisp'slime-complete-symbol)
+		   (lisp 'slime-complete-symbol)
 		   (slime-repl 'slime-indent-and-complete-symbol))))))
 
 (eval-after-load "paredit"
