@@ -146,3 +146,5 @@ corresponding function in the key mapping (the global one if null)."
 	browse-url-firefox-program "firefox3")
   ;; start an emacs server
   (server-start))
+
+(require 'keywiz)	; game to learn emacs key-bindings
