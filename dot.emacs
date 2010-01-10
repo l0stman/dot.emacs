@@ -8,8 +8,8 @@
 (require 'cl)	; Common Lisp library
 
 (defmacro defkeys (map &rest bindings)
-  "Define the bindings represented as property list of a key and the
-corresponding function in the key mapping (the global one if null)."
+  "Define the bindings represented as property list of keys and
+functions in the key mapping map (the global one if null)."
   (eval-after-load "cl"
     '`(progn
 	,@(loop for plist on bindings by #'cddr
