@@ -1,0 +1,11 @@
+This is my emacs startup file and some tweaking:
+* README: this file.
+* install.sh: install the different configurations files.  It also
+generates a core file containing the SLIME swank server for SBCL.
+* xmodmaprc: emulate the Lisp Machine keyboard enabling Hyper and
+Super modifiers.  It assumes a dvorak keyboard.  You should add the
+following lines in your .xinitrc:
+setxkbmap dvorak
+xmodmap ~/.xmodmaprc
+* dot.emacs: the emacs startup file
+* lib: some emacs lisp libraries I use.
