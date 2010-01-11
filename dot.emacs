@@ -57,10 +57,8 @@ functions in the key mapping map (the global one if null)."
      (color-theme-initialize)
      (color-theme-djcb-dark)))
 
-;;;; SLIME configuration
+;;;; SLIME configuration for Common Lisp
 (defvar *slime-dir* "/usr/local/share/emacs/23.0.95/site-lisp/slime")
-
-;;; Common Lisp
 (defvar *sbcl-core* (concat *emacs-dir* "/sbcl.core-with-swank"))
 (defvar *hyperspec-dir* "/usr/local/share/doc/clisp-hyperspec/HyperSpec/")
 
@@ -76,6 +74,9 @@ functions in the key mapping map (the global one if null)."
 (require 'slime-autoloads)
 (slime-setup '(slime-repl slime-autodoc slime-fuzzy))
 
+;;;; Quack for Scheme
+(require 'quack)
+
 ;;;; Paredit
 (autoload 'paredit-mode "paredit"
   "Minor mode for pseudo-structurally editing Lisp code."
@@ -88,7 +89,7 @@ functions in the key mapping map (the global one if null)."
      (dolist (o args) (princ o)))))
 
 (defvar *paredit-mode-list*
-  '(lisp scheme emacs-lisp lisp-interaction slime-repl)
+  '(lisp scheme emacs-lisp lisp-interaction slime-repl inferior-scheme-mode)
   "List of major modes using paredit.")
 
 ;; Toggle paredit mode and bind <tab> to symbol completion.
