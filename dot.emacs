@@ -90,7 +90,7 @@ functions in the key mapping map (the global one if null)."
      (dolist (o args) (princ o)))))
 
 (defvar *paredit-mode-list*
-  '(lisp scheme emacs-lisp lisp-interaction slime-repl inferior-scheme-mode)
+  '(lisp scheme emacs-lisp lisp-interaction slime-repl inferior-scheme)
   "List of major modes using paredit.")
 
 ;; Toggle paredit mode and bind <tab> to symbol completion.
