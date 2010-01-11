@@ -3,6 +3,7 @@
 (defvar *emacs-dir* "/home/l0stman/.emacs.d"
   "Emacs personal root directory.")
 
+(add-to-list 'load-path *emacs-dir*)
 (add-to-list 'load-path (concat *emacs-dir* "/lib"))
 
 (require 'cl)	; Common Lisp library
@@ -74,7 +75,7 @@ functions in the key mapping map (the global one if null)."
 (require 'slime-autoloads)
 (slime-setup '(slime-repl slime-autodoc slime-fuzzy))
 
-;;;; Quack for Scheme
+;;;; For editing scheme code
 (require 'quack)
 
 ;;;; Paredit
@@ -140,12 +141,15 @@ functions in the key mapping map (the global one if null)."
 	       "C-c s" slime-repl-next-matching-input
 	       "C-c r" slime-repl-previous-matching-input)))
 
-;;;; Misc
-(setq show-trailing-whitespace t)
+;;;; Misc 
 (when (eq window-system 'x)
   (setq browse-url-browser-function 'browse-url-firefox
 	browse-url-firefox-program "firefox3")
   ;; start an emacs server
   (server-start))
+
+(setq show-trailing-whitespace t
+      custom-file (concat *emacs-dir* "/emacs-custom.el"))
+(load custom-file)
 
 (require 'keywiz)	; game to learn emacs key-bindings

@@ -6,6 +6,7 @@ CORE="${EMACSDIR}/sbcl.core-with-swank"
 
 cp xmodmaprc ~/.xmodmaprc
 cp dot.emacs ~/.emacs
+cp emacs-custom.el ${EMACSDIR}
 
 # Compile the library
 emacs --batch -f batch-byte-compile lib/*.el

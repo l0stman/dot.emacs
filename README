@@ -9,3 +9,4 @@ setxkbmap dvorak
 xmodmap ~/.xmodmaprc
 * dot.emacs: the emacs startup file
 * lib: some emacs lisp libraries I use.
+* emacs-custom.el:  emacs customization file.
