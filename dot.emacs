@@ -117,6 +117,9 @@ functions in the key mapping map (the global one if null)."
      "C-<backspace>" backward-kill-sexp))
 
 ;;;; Adding some hooks.
+;;; text mode
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
+
 ;;; C mode
 (add-hook 'c-mode-hook
 	  '(lambda ()
