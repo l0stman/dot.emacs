@@ -99,7 +99,7 @@ functions in the key mapping map (the global one if null)."
   '(lisp scheme emacs-lisp lisp-interaction slime-repl inferior-scheme)
   "List of major modes using paredit.")
 
-;; Toggle paredit mode and bind <tab> to symbol completion.
+;;; Toggle paredit mode and bind <tab> to symbol completion.
 (dolist (name *paredit-mode-list*)
   (add-hook (symb name '-mode-hook) 
 	    `(lambda ()
@@ -110,22 +110,28 @@ functions in the key mapping map (the global one if null)."
 		   (lisp 'slime-complete-symbol)
 		   (slime-repl 'slime-indent-and-complete-symbol))))))
 
-(eval-after-load "paredit"
-  '(defkeys paredit-mode-map
-     "C-t" transpose-sexps
-     "C-M-t" transpose-chars
-     "C-f" paredit-forward
-     "C-M-f" forward-char
-     "C-b" paredit-backward
-     "C-M-b" backward-char
-     "C-k" kill-sexp
-     "C-M-k" paredit-kill
-     "C-<backspace>" backward-kill-sexp))
-
 ;;;; Adding some hooks.
 (setq-default indent-tabs-mode nil)	; Use spaces only for indentation.
 
-;;; text mode
+;;; Make it easy to navigate by expression for programming mode.
+(defvar *prog-mode-list* '(paredit c sh awk)
+  "List of programming mode names.")
+
+(dolist (name *prog-mode-list*)
+  (add-hook (symb name '-mode-hook)
+	    `(lambda ()
+	       (defkeys ,(symb name '-mode-map)
+		 "C-t" transpose-sexps
+		 "C-M-t" transpose-chars
+		 "C-f" paredit-forward
+		 "C-M-f" forward-char
+		 "C-b" paredit-backward
+		 "C-M-b" backward-char
+		 "C-k" kill-sexp
+		 "C-M-k" paredit-kill
+		 "C-<backspace>" backward-kill-sexp))))
+
+;;; Text mode
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 ;;; C mode
