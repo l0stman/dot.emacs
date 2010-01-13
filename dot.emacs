@@ -19,7 +19,7 @@ functions in the key mapping map (the global one if null)."
 			      `(define-key ,map (kbd ,key) ',fn)
 			    `(global-set-key (kbd ,key) ',fn)))))))
 
-(defun join-next-line
+(defun join-next-line ()
   "Join the current line with the next one."
   (interactive)
   (join-line 1))
@@ -138,7 +138,8 @@ functions in the key mapping map (the global one if null)."
 (add-hook 'c-mode-hook
 	  '(lambda ()
 	     (c-set-style "bsd")
-	     (c-toggle-auto-newline)))
+	     (c-toggle-auto-newline)
+             (define-key c-mode-map "\C-m" 'c-context-line-break)))
 
 ;;; Interaction Lisp mode
 (add-hook 'lisp-interaction-mode-hook
