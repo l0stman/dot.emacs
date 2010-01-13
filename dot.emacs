@@ -6,7 +6,7 @@
 (add-to-list 'load-path *emacs-dir*)
 (add-to-list 'load-path (concat *emacs-dir* "/lib"))
 
-(require 'cl)	; Common Lisp library
+(require 'cl)				; Common Lisp library
 
 (defmacro defkeys (map &rest bindings)
   "Define the bindings represented as property list of keys and
@@ -18,6 +18,11 @@ functions in the key mapping map (the global one if null)."
 			  (if map
 			      `(define-key ,map (kbd ,key) ',fn)
 			    `(global-set-key (kbd ,key) ',fn)))))))
+
+(defun join-next-line
+  "Join the current line with the next one."
+  (interactive)
+  (join-line 1))
 
 ;;;; Global key bindings
 (defkeys nil
@@ -43,7 +48,8 @@ functions in the key mapping map (the global one if null)."
   "C-w" backward-kill-word
   "C-x C-k" kill-region
   "C-h" backward-delete-char-untabify
-  "C-x j" join-line)
+  "C-c k" join-line
+  "C-c j" join-next-line)
 
 (define-key isearch-mode-map "\C-h" 'isearch-delete-char)
 
@@ -155,4 +161,4 @@ functions in the key mapping map (the global one if null)."
       custom-file (concat *emacs-dir* "/emacs-custom.el"))
 (load custom-file)
 
-(require 'keywiz)	; game to learn emacs key-bindings
+(require 'keywiz)		    ; game to learn emacs key-bindings
