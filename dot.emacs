@@ -135,15 +135,15 @@ functions in the key mapping map (the global one if null)."
 ;;; Text mode
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
-;;; C mode
+;;; CC mode
 (defun add-to-list* (lst &rest args)
   (dolist (fn args) (add-to-list lst fn)))
 
-(add-hook 'c-mode-hook
+(add-hook 'c-initialization-hook
 	  '(lambda ()
 	     (c-set-style "bsd")
 	     (c-toggle-auto-newline) 
-             (defkeys c-mode-map
+             (defkeys c-mode-base-map
                "C-m" c-context-line-break
                "C-c RET" c-macro-expand)
              (add-to-list* 'c-cleanup-list
