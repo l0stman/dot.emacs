@@ -34,7 +34,7 @@ functions in the key mapping map (the global one if null)."
   "<f3>" compile
   "<f4>" repeat-complex-command
   "<f5>" slime-selector
-  
+
   ;; Meta
   "M-g" goto-line
   "M-n" next-error
@@ -103,7 +103,7 @@ functions in the key mapping map (the global one if null)."
 
 ;;; Toggle paredit mode and bind <tab> to symbol completion.
 (dolist (name *paredit-mode-list*)
-  (add-hook (symb name '-mode-hook) 
+  (add-hook (symb name '-mode-hook)
 	    `(lambda ()
 	       (paredit-mode +1)
 	       (define-key ,(symb name '-mode-map) (kbd "<tab>")
@@ -139,7 +139,7 @@ functions in the key mapping map (the global one if null)."
 (add-hook 'c-initialization-hook
 	  '(lambda ()
 	     (c-set-style "bsd")
-	     (c-toggle-auto-newline) 
+	     (c-toggle-auto-newline)
              (defkeys c-mode-base-map
                "C-m" c-context-line-break
                "C-c RET" c-macro-expand)
@@ -169,7 +169,7 @@ functions in the key mapping map (the global one if null)."
 	       "C-c s" slime-repl-next-matching-input
 	       "C-c r" slime-repl-previous-matching-input)))
 
-;;;; Misc 
+;;;; Misc
 (when (eq window-system 'x)
   (setq browse-url-browser-function 'browse-url-firefox
 	browse-url-firefox-program "firefox3")
