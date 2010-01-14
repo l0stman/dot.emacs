@@ -108,7 +108,8 @@ functions in the key mapping map (the global one if null)."
 		 (case ',name
 		   ((emacs-lisp lisp-interaction) 'lisp-complete-symbol)
 		   (lisp 'slime-complete-symbol)
-		   (slime-repl 'slime-indent-and-complete-symbol))))))
+		   (slime-repl 'slime-indent-and-complete-symbol)
+                   (otherwise 'dabbrev-expand))))))
 
 ;;;; Adding some hooks.
 (setq-default indent-tabs-mode nil)	; Use spaces only for indentation.
@@ -135,11 +136,23 @@ functions in the key mapping map (the global one if null)."
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 ;;; C mode
+(defun add-to-list* (lst &rest args)
+  (dolist (fn args) (add-to-list lst fn)))
+
 (add-hook 'c-mode-hook
 	  '(lambda ()
 	     (c-set-style "bsd")
-	     (c-toggle-auto-newline)
-             (define-key c-mode-map "\C-m" 'c-context-line-break)))
+	     (c-toggle-auto-newline) 
+             (defkeys c-mode-map
+               "C-m" c-context-line-break
+               "C-c RET" c-macro-expand)
+             (add-to-list* 'c-cleanup-list
+                           'comment-close-slash
+                           'brace-else-brace
+                           'brace-elseif-brace
+                           'defun-close-semi)
+             (pushnew '(class-open after) c-hanging-braces-alist
+                      :test #'equal)))
 
 ;;; Interaction Lisp mode
 (add-hook 'lisp-interaction-mode-hook
