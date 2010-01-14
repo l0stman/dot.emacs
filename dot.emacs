@@ -3,8 +3,10 @@
 (defvar *emacs-dir* "/home/l0stman/.emacs.d"
   "Emacs personal root directory.")
 
-(add-to-list 'load-path *emacs-dir*)
-(add-to-list 'load-path (concat *emacs-dir* "/lib"))
+(defun add-to-list* (lst &rest args)
+  (dolist (fn args) (add-to-list lst fn)))
+
+(add-to-list* 'load-path *emacs-dir* (concat *emacs-dir* "/lib"))
 
 (require 'cl)				; Common Lisp library
 
@@ -136,9 +138,6 @@ functions in the key mapping map (the global one if null)."
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 ;;; CC mode
-(defun add-to-list* (lst &rest args)
-  (dolist (fn args) (add-to-list lst fn)))
-
 (add-hook 'c-initialization-hook
 	  '(lambda ()
 	     (c-set-style "bsd")
