@@ -114,8 +114,6 @@ functions in the key mapping map (the global one if null)."
                    (otherwise 'dabbrev-expand))))))
 
 ;;;; Adding some hooks.
-(setq-default indent-tabs-mode nil)	; Use spaces only for indentation.
-
 ;;; Make it easy to navigate by expression for programming mode.
 (defvar *prog-mode-list* '(paredit c sh awk)
   "List of programming mode names.")
@@ -178,8 +176,10 @@ functions in the key mapping map (the global one if null)."
   ;; start an emacs server
   (server-start))
 
-(setq show-trailing-whitespace t
-      custom-file (concat *emacs-dir* "emacs-custom.el"))
+(setq-default indent-tabs-mode nil      ; use spaces only for indentation
+              show-trailing-whitespace t)
+
+(setq custom-file (concat *emacs-dir* "emacs-custom.el"))
 (load custom-file)
 
 (require 'keywiz)		    ; game to learn emacs key-bindings
