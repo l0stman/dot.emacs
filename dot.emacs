@@ -1,12 +1,12 @@
 ;;;; -*-Emacs-Lisp-*-
 
-(defvar *emacs-dir* "/home/l0stman/.emacs.d"
+(defvar *emacs-dir* "/home/l0stman/.emacs.d/"
   "Emacs personal root directory.")
 
 (defun add-to-list* (lst &rest args)
   (dolist (fn args) (add-to-list lst fn)))
 
-(add-to-list* 'load-path *emacs-dir* (concat *emacs-dir* "/lib"))
+(add-to-list* 'load-path *emacs-dir* (concat *emacs-dir* "lib"))
 
 (require 'cl)				; Common Lisp library
 
@@ -67,8 +67,8 @@ functions in the key mapping map (the global one if null)."
      (color-theme-djcb-dark)))
 
 ;;;; SLIME configuration for Common Lisp
-(defvar *slime-dir* "/usr/local/share/emacs/23.0.95/site-lisp/slime")
-(defvar *sbcl-core* (concat *emacs-dir* "/sbcl.core-with-swank"))
+(defvar *slime-dir* "/usr/local/share/emacs/23.0.95/site-lisp/slime/")
+(defvar *sbcl-core* (concat *emacs-dir* "sbcl.core-with-swank"))
 (defvar *hyperspec-dir* "/usr/local/share/doc/clisp-hyperspec/HyperSpec/")
 
 (setq slime-net-coding-system 'utf-8-unix
@@ -79,7 +79,7 @@ functions in the key mapping map (the global one if null)."
 	      :init (lambda (port-file _)
 		      (format "(swank:start-server %S)\n" port-file)))))
 
-(add-to-list 'load-path *slime-dir* (concat *slime-dir* "/contrib"))
+(add-to-list 'load-path *slime-dir* (concat *slime-dir* "contrib"))
 (require 'slime-autoloads)
 (slime-setup '(slime-repl slime-autodoc slime-fuzzy))
 
@@ -179,7 +179,7 @@ functions in the key mapping map (the global one if null)."
   (server-start))
 
 (setq show-trailing-whitespace t
-      custom-file (concat *emacs-dir* "/emacs-custom.el"))
+      custom-file (concat *emacs-dir* "emacs-custom.el"))
 (load custom-file)
 
 (require 'keywiz)		    ; game to learn emacs key-bindings
