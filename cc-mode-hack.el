@@ -1,15 +1,20 @@
+(substitute-key-definition 'c-electric-brace 'c-hack-electric-brace)
+
 (defun c-hack-brace ()
   "Insert a corresponding closing brace."
   (interactive "*")
-  (when (eq last-command-event ?\{)
-    (save-excursion
-      (let ((p (point)))
-       (insert ?\;)
-       (c-newline-and-indent)
-       (insert ?\})
-       (c-indent-line-or-region)
-       (goto-char p)
-       (delete-char 1)))))
+  (let ((lit (c-save-buffer-state () (c-in-literal))))
+    (when (and (eq last-command-event ?\{)
+               (not (eq lit 'c))
+               (not (eq lit 'string)))
+     (save-excursion
+       (let ((p (point)))
+         (insert ?\;)
+         (c-newline-and-indent)
+         (insert ?\})
+         (c-indent-line-or-region)
+         (goto-char p)
+         (delete-char 1))))))
 
 (defun c-hack-move-past-brace ()
   "Delete the trailing blank lines before the closing brace and move
