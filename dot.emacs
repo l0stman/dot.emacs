@@ -148,8 +148,8 @@ functions in the key mapping map (the global one if null)."
                            'brace-else-brace
                            'brace-elseif-brace
                            'defun-close-semi)
-             (pushnew '(class-open after) c-hanging-braces-alist
-                      :test #'equal)))
+             (add-to-list* 'c-hanging-braces-alist
+                           '(class-open after))))
 
 ;;; Interaction Lisp mode
 (add-hook 'lisp-interaction-mode-hook
