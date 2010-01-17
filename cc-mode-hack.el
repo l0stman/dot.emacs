@@ -1,10 +1,6 @@
 (substitute-key-definition 'c-electric-brace 'c-hack-electric-brace
                            c-mode-base-map)
 
-(defun c-hack-in-string-or-comment-p ()
-  (let ((lit (c-save-buffer-state () (c-in-literal))))
-    (or (eq lit 'c) (eq lit 'string))))
-
 (defun c-hack-balance-brace ()
   "Insert a corresponding closing brace."
   (interactive "*")
@@ -25,7 +21,7 @@ past it."
   (save-excursion
     (beginning-of-line)
     (delete-region (point)
-                   (if (re-search-backward "[^ \t\n]" nil t)
+                   (if (re-search-backward "[^ \t\n\\]" nil t)
                        (progn (forward-line 1) (point))
                      (point-min)))))
 
@@ -59,7 +55,7 @@ settings of `c-cleanup-list' are done."
 
     ;; Insert the brace.  Note that expand-abbrev might reindent
     ;; the line here if there's a preceding "else" or something.
-    (if (or (c-hack-in-string-or-comment-p)
+    (if (or literal
             (eq last-command-event ?\{))
         (self-insert-command (prefix-numeric-value arg))
       (c-hack-move-past-brace))
@@ -196,5 +192,5 @@ settings of `c-cleanup-list' are done."
 
     ;; Add a closing brace corresponding to an open one.
     (when (and (eq last-command-event ?\{)
-               (not (c-hack-in-string-or-comment-p)))
+               (not literal))
       (c-hack-balance-brace))))
