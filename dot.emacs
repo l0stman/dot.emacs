@@ -138,10 +138,12 @@ functions in the key mapping map (the global one if null)."
 ;;; CC mode
 (require 'cc-cmds-hack)                 ; slight modification of cc-cmds.el
 
-(defmacro subskeys (map &rest binds)
+(defmacro subskeys (map &rest funcs)
+  "Replace in the keymap map the old definitions of functions
+with new ones represented as property list."
   (eval-after-load "cl"
     '`(progn
-        ,@(loop for plist on binds by #'cddr
+        ,@(loop for plist on funcs by #'cddr
                 collect `(substitute-key-definition
                           ',(car plist) ',(cadr plist) ,map)))))
 
