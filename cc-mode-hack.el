@@ -30,6 +30,27 @@ past it.  If line-p is true, leave one newline."
                          (point))
                      (point-min)))))
 
+(defkeys c-mode-base-map
+  "[" c-hack-bracket
+  "]" c-hack-bracket)
+
+(defun c-hack-bracket (arg)
+  "Insert a balanced bracket or move past the closing one."
+  (interactive "*P")
+  (let ((lit (c-save-buffer-state () (c-in-literal)))
+        (blink-fn blink-paren-function)
+        (blink-paren-function))
+    (cond (lit (self-insert-command (prefix-numeric-value arg)))
+          ((eq last-command-event ?\[)
+           (insert ?\[)
+           (c-hack-balance ?\] :indent-p nil))
+          (t
+           (c-hack-move-past-close :line-p nil)
+           (and (not lit)
+                (not executing-kbd-macro)
+                blink-fn
+                (funcall blink-fn))))))
+
 (defun c-hack-electric-brace (arg)
   "Insert a brace.
 
