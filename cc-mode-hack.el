@@ -1,20 +1,21 @@
 (substitute-key-definition 'c-electric-brace 'c-hack-electric-brace
                            c-mode-base-map)
 
-(defun c-hack-balance-brace ()
-  "Insert a corresponding closing brace."
-  (interactive "*")
+(defun c-hack-balance (close &optional indent-p)
+  "Insert a corresponding closing token and optionally add a newline."
   (save-excursion
-    (let ((p (point)))
-      (insert ?\;)
-      (c-newline-and-indent)
-      (insert ?\})
-      (c-indent-line-or-region)
-      (goto-char p)
-      (delete-char 1))))
+    (cond (indent-p
+           (let ((p (point)))
+             (insert ?\;)
+             (c-newline-and-indent)
+             (insert close)
+             (c-indent-line-or-region)
+             (goto-char p)
+             (delete-char 1)))
+          (t (insert close)))))
 
-(defun c-hack-move-past-brace ()
-  "Delete the trailing blank lines before the closing brace and move
+(defun c-hack-move-past-close ()
+  "Delete the trailing blanks before the closing token and move
 past it."
   (interactive "*")
   (backward-up-list -1)
@@ -53,8 +54,9 @@ settings of `c-cleanup-list' are done."
       (setq safepos (c-safe-position (point) (c-parse-state))
 	    literal (c-in-literal safepos)))
 
-    ;; Insert the brace.  Note that expand-abbrev might reindent
-    ;; the line here if there's a preceding "else" or something.
+    ;; Insert an opening brace or move past a closing one.  Note
+    ;; that expand-abbrev might reindent the line here if there's
+    ;; a preceding "else" or something.
     (if (or literal
             (eq last-command-event ?\{))
         (self-insert-command (prefix-numeric-value arg))
@@ -68,8 +70,9 @@ settings of `c-cleanup-list' are done."
 	(let ( ;; shut this up too
 	      (c-echo-syntactic-information-p nil)
 	      newlines
-	      ln-syntax br-syntax syntax) ; Syntactic context of the original line,
-                                        ; of the brace itself, of the line the brace ends up on.
+	      ln-syntax br-syntax syntax) ; Syntactic context of the original
+                                        ; line, of the brace itself, of the
+                                        ; line the brace ends up on.
 	  (c-save-buffer-state ((c-syntactic-indentation-in-macros t)
 				(c-auto-newline-analysis t))
 	    (setq ln-syntax (c-guess-basic-syntax)))
@@ -193,4 +196,109 @@ settings of `c-cleanup-list' are done."
     ;; Add a closing brace corresponding to an open one.
     (when (and (eq last-command-event ?\{)
                (not literal))
-      (c-hack-balance-brace))))
+      (c-hack-balance ?\} t))))
+
+(defun c-hack-electric-paren (arg)
+  "Insert a parenthesis.
+
+If `c-syntactic-indentation' and `c-electric-flag' are both non-nil, the
+line is reindented unless a numeric ARG is supplied, or the parenthesis
+is inserted inside a literal.
+
+Whitespace between a function name and the parenthesis may get added or
+removed; see the variable `c-cleanup-list'.
+
+Also, if `c-electric-flag' and `c-auto-newline' are both non-nil, some
+newline cleanups are done if appropriate; see the variable `c-cleanup-list'."
+  (interactive "*P")
+  (let ((literal (c-save-buffer-state () (c-in-literal)))
+	;; shut this up
+	(c-echo-syntactic-information-p nil))
+    (self-insert-command (prefix-numeric-value arg))
+
+    (if (and (not arg) (not literal))
+	(let* (	;; We want to inhibit blinking the paren since this will
+	       ;; be most disruptive.  We'll blink it ourselves
+	       ;; afterwards.
+	       (old-blink-paren blink-paren-function)
+	       blink-paren-function)
+	  (if (and c-syntactic-indentation c-electric-flag)
+	      (indent-according-to-mode))
+
+	  ;; If we're at EOL, check for new-line clean-ups.
+	  (when (and c-electric-flag c-auto-newline
+		     (looking-at "[ \t]*\\\\?$"))
+
+	    ;; clean up brace-elseif-brace
+	    (when
+		(and (memq 'brace-elseif-brace c-cleanup-list)
+		     (eq last-command-event ?\()
+		     (re-search-backward
+		      (concat "}"
+			      "\\([ \t\n]\\|\\\\\n\\)*"
+			      "else"
+			      "\\([ \t\n]\\|\\\\\n\\)+"
+			      "if"
+			      "\\([ \t\n]\\|\\\\\n\\)*"
+			      "("
+			      "\\=")
+		      nil t)
+		     (not  (c-save-buffer-state () (c-in-literal))))
+	      (delete-region (match-beginning 0) (match-end 0))
+	      (insert-and-inherit "} else if ("))
+
+	    ;; clean up brace-catch-brace
+	    (when
+		(and (memq 'brace-catch-brace c-cleanup-list)
+		     (eq last-command-event ?\()
+		     (re-search-backward
+		      (concat "}"
+			      "\\([ \t\n]\\|\\\\\n\\)*"
+			      "catch"
+			      "\\([ \t\n]\\|\\\\\n\\)*"
+			      "("
+			      "\\=")
+		      nil t)
+		     (not  (c-save-buffer-state () (c-in-literal))))
+	      (delete-region (match-beginning 0) (match-end 0))
+	      (insert-and-inherit "} catch (")))
+
+	  ;; Check for clean-ups at function calls.  These two DON'T need
+	  ;; `c-electric-flag' or `c-syntactic-indentation' set.
+	  ;; Point is currently just after the inserted paren.
+	  (let (beg (end (1- (point))))
+	    (cond
+
+	     ;; space-before-funcall clean-up?
+	     ((and (memq 'space-before-funcall c-cleanup-list)
+		   (eq last-command-event ?\()
+		   (save-excursion
+		     (backward-char)
+		     (skip-chars-backward " \t")
+		     (setq beg (point))
+		     (and (c-save-buffer-state () (c-on-identifier))
+                          ;; Don't add a space into #define FOO()....
+                          (not (and (c-beginning-of-macro)
+                                    (c-forward-over-cpp-define-id)
+                                    (eq (point) beg))))))
+	      (save-excursion
+		(delete-region beg end)
+		(goto-char beg)
+		(insert ?\ )))
+
+	     ;; compact-empty-funcall clean-up?
+		  ((c-save-buffer-state ()
+		     (and (memq 'compact-empty-funcall c-cleanup-list)
+			  (eq last-command-event ?\))
+			  (save-excursion
+			    (c-safe (backward-char 2))
+			    (when (looking-at "()")
+			      (setq end (point))
+			      (skip-chars-backward " \t")
+			      (setq beg (point))
+			      (c-on-identifier)))))
+		   (delete-region beg end))))
+	  (and (eq last-input-event ?\))
+	       (not executing-kbd-macro)
+	       old-blink-paren
+	       (funcall old-blink-paren))))))
