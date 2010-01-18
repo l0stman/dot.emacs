@@ -8,18 +8,7 @@
 
 (add-to-list* 'load-path *emacs-dir* (concat *emacs-dir* "lib"))
 
-(require 'cl)				; Common Lisp library
-
-(defmacro defkeys (map &rest bindings)
-  "Define the bindings represented as property list of keys and
-functions in the key mapping map (the global one if null)."
-  (eval-after-load "cl"
-    '`(progn
-	,@(loop for plist on bindings by #'cddr
-		collect (let ((key (car plist)) (fn (cadr plist)))
-			  (if map
-			      `(define-key ,map (kbd ,key) ',fn)
-			    `(global-set-key (kbd ,key) ',fn)))))))
+(require 'utils)                   ; Some utility macros and functions
 
 (defun join-next-line ()
   "Join the current line with the next one."
@@ -91,12 +80,6 @@ functions in the key mapping map (the global one if null)."
   "Minor mode for pseudo-structurally editing Lisp code."
   t)
 
-(defun symb (&rest args)
-  "Produce a symbol from the lisp objects."
-  (intern
-   (with-output-to-string
-     (dolist (o args) (princ o)))))
-
 (defvar *paredit-mode-list*
   '(lisp scheme emacs-lisp lisp-interaction slime-repl inferior-scheme)
   "List of major modes using paredit.")
@@ -137,25 +120,6 @@ functions in the key mapping map (the global one if null)."
 
 ;;; CC mode
 (require 'cc-cmds-hack)                 ; slight modification of cc-cmds.el
-
-(defmacro subskeys (map &rest funcs)
-  "Replace in the keymap map the old definitions of functions
-with new ones represented as property list."
-  (eval-after-load "cl"
-    '`(progn
-        ,@(loop for plist on funcs by #'cddr
-                collect `(substitute-key-definition
-                          ',(car plist) ',(cadr plist) ,map)))))
-
-(defmacro add-to-alist (alist &rest bindings)
-  "Add the entries to an association list if they aren't there
-yet.  Otherwise update the corresponding entries."
-  `(progn
-     ,@(loop for bind in bindings collect
-             `(let ((entry (assq ',(car bind) ,alist)))
-                (if entry
-                    (setf (cdr entry) ',(cdr bind))
-                  (push ',bind ,alist))))))
 
 (add-hook 'c-initialization-hook
           '(lambda ()
