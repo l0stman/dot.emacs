@@ -1,7 +1,9 @@
 (substitute-key-definition 'c-electric-brace 'c-hack-electric-brace
                            c-mode-base-map)
+(substitute-key-definition 'c-electric-paren 'c-hack-electric-paren
+                           c-mode-base-map)
 
-(defun c-hack-balance (close &optional indent-p)
+(defun c-hack-balance (close &keyword indent-p)
   "Insert a corresponding closing token and optionally add a newline."
   (save-excursion
     (cond (indent-p
@@ -14,16 +16,18 @@
              (delete-char 1)))
           (t (insert close)))))
 
-(defun c-hack-move-past-close ()
+(defun c-hack-move-past-close (&keyword line-p)
   "Delete the trailing blanks before the closing token and move
-past it."
+past it.  If line-p is true, leave one newline."
   (interactive "*")
   (backward-up-list -1)
   (save-excursion
-    (beginning-of-line)
+    (backward-char)
     (delete-region (point)
                    (if (re-search-backward "[^ \t\n\\]" nil t)
-                       (progn (forward-line 1) (point))
+                       (progn
+                         (if line-p (forward-line) (forward-char))
+                         (point))
                      (point-min)))))
 
 (defun c-hack-electric-brace (arg)
@@ -60,7 +64,7 @@ settings of `c-cleanup-list' are done."
     (if (or literal
             (eq last-command-event ?\{))
         (self-insert-command (prefix-numeric-value arg))
-      (c-hack-move-past-brace))
+      (c-hack-move-past-close :line-p t))
 
     (when (and c-electric-flag (not literal) (not arg))
       (if (not (looking-at "[ \t]*\\\\?$"))
@@ -185,7 +189,8 @@ settings of `c-cleanup-list' are done."
 	    ))))
 
     ;; blink the paren
-    (and (eq last-command-event ?\})
+    (and (not literal)
+         (eq last-command-event ?\})
 	 (not executing-kbd-macro)
 	 old-blink-paren
 	 (save-excursion
@@ -196,7 +201,7 @@ settings of `c-cleanup-list' are done."
     ;; Add a closing brace corresponding to an open one.
     (when (and (eq last-command-event ?\{)
                (not literal))
-      (c-hack-balance ?\} t))))
+      (c-hack-balance ?\} :indent-p t))))
 
 (defun c-hack-electric-paren (arg)
   "Insert a parenthesis.
@@ -211,17 +216,20 @@ removed; see the variable `c-cleanup-list'.
 Also, if `c-electric-flag' and `c-auto-newline' are both non-nil, some
 newline cleanups are done if appropriate; see the variable `c-cleanup-list'."
   (interactive "*P")
-  (let ((literal (c-save-buffer-state () (c-in-literal)))
-	;; shut this up
-	(c-echo-syntactic-information-p nil))
-    (self-insert-command (prefix-numeric-value arg))
+  (let* ((literal (c-save-buffer-state () (c-in-literal)))
+         ;; shut this up
+         (c-echo-syntactic-information-p nil)
+         ;; We want to inhibit blinking the paren since this will
+         ;; be most disrputive.  We'll blink it ourselves afterwards.
+         (old-blink-paren blink-paren-function)
+         blink-paren-function)
+    (if (or literal
+            (eq last-command-event ?\())
+        (self-insert-command (prefix-numeric-value arg))
+      (c-hack-move-past-close :line-p nil))
 
     (if (and (not arg) (not literal))
-	(let* (	;; We want to inhibit blinking the paren since this will
-	       ;; be most disruptive.  We'll blink it ourselves
-	       ;; afterwards.
-	       (old-blink-paren blink-paren-function)
-	       blink-paren-function)
+	(progn
 	  (if (and c-syntactic-indentation c-electric-flag)
 	      (indent-according-to-mode))
 
@@ -287,17 +295,19 @@ newline cleanups are done if appropriate; see the variable `c-cleanup-list'."
 		(insert ?\ )))
 
 	     ;; compact-empty-funcall clean-up?
-		  ((c-save-buffer-state ()
-		     (and (memq 'compact-empty-funcall c-cleanup-list)
-			  (eq last-command-event ?\))
-			  (save-excursion
-			    (c-safe (backward-char 2))
-			    (when (looking-at "()")
-			      (setq end (point))
-			      (skip-chars-backward " \t")
-			      (setq beg (point))
-			      (c-on-identifier)))))
-		   (delete-region beg end))))
+             ((c-save-buffer-state ()
+                (and (memq 'compact-empty-funcall c-cleanup-list)
+                     (eq last-command-event ?\))
+                     (save-excursion
+                       (c-safe (backward-char 2))
+                       (when (looking-at "()")
+                         (setq end (point))
+                         (skip-chars-backward " \t")
+                         (setq beg (point))
+                         (c-on-identifier)))))
+              (delete-region beg end))))
+          (when (eq last-command-event ?\()
+            (c-hack-balance ?\) :indent-p nil))
 	  (and (eq last-input-event ?\))
 	       (not executing-kbd-macro)
 	       old-blink-paren
