@@ -52,7 +52,8 @@ past it.  If line-p is true, leave one newline."
                 (funcall blink-fn))))))
 
 (defun c-hack-electric-brace (arg)
-  "Insert a brace.
+  "This is a slightly modified version of `c-electric-brace'.
+It inserts balanced braces or move past a closing one.
 
 If `c-electric-flag' is non-nil, the brace is not inside a literal and a
 numeric ARG hasn't been supplied, the command performs several electric
@@ -225,7 +226,8 @@ settings of `c-cleanup-list' are done."
       (c-hack-balance ?\} :indent-p t))))
 
 (defun c-hack-electric-paren (arg)
-  "Insert a parenthesis.
+  "This is a slightly modified version of `c-electric-paren'.
+It inserts balanced parenthesis or move past the closing one.
 
 If `c-syntactic-indentation' and `c-electric-flag' are both non-nil, the
 line is reindented unless a numeric ARG is supplied, or the parenthesis
@@ -333,3 +335,5 @@ newline cleanups are done if appropriate; see the variable `c-cleanup-list'."
 	       (not executing-kbd-macro)
 	       old-blink-paren
 	       (funcall old-blink-paren))))))
+
+(provide 'cc-mode-hack)
