@@ -30,10 +30,11 @@ with new ones represented as property list."
   "Add the entries to an association list if they aren't there
 yet.  Otherwise update the corresponding entries."
   `(progn
-     ,@(loop for bind in bindings collect
-             `(let ((entry (assq ',(car bind) ,alist)))
-                (if entry
-                    (setf (cdr entry) ',(cdr bind))
-                  (push ',bind ,alist))))))
+     ,@(mapcar #'(lambda (bind)
+                   `(let ((entry (assq ',(car bind) ,alist)))
+                      (if entry
+                          (setf (cdr entry) ',(cdr bind))
+                        (push ',bind ,alist))))
+               bindings)))
 
 (provide 'utils)
