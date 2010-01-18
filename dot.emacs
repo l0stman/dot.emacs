@@ -136,13 +136,27 @@ functions in the key mapping map (the global one if null)."
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 ;;; CC mode
+(require 'cc-cmds-hack)                 ; slight modification of cc-cmds.el
+
+(defmacro subskeys (map &rest binds)
+  (eval-after-load "cl"
+    '`(progn
+        ,@(loop for plist on binds by #'cddr
+                collect `(substitute-key-definition
+                          ',(car plist) ',(cadr plist) ,map)))))
+
 (add-hook 'c-initialization-hook
-	  '(lambda ()
-	     (c-set-style "bsd")
-	     (c-toggle-auto-newline)
+          '(lambda ()
+             (c-set-style "bsd")
+             (c-toggle-auto-newline)
              (defkeys c-mode-base-map
                "C-m" c-context-line-break
-               "C-c RET" c-macro-expand)
+               "C-c RET" c-macro-expand
+               "[" c-hack-bracket
+               "]" c-hack-bracket)
+             (subskeys c-mode-base-map
+                       c-electric-brace c-hack-electric-brace
+                       c-electric-paren c-hack-electric-paren)
              (add-to-list* 'c-cleanup-list
                            'comment-close-slash
                            'brace-else-brace
