@@ -147,6 +147,16 @@ with new ones represented as property list."
                 collect `(substitute-key-definition
                           ',(car plist) ',(cadr plist) ,map)))))
 
+(defmacro add-to-alist (alist &rest bindings)
+  "Add the entries to an association list if they aren't there
+yet.  Otherwise update the corresponding entries."
+  `(progn
+     ,@(loop for bind in bindings collect
+             `(let ((entry (assq ',(car bind) ,alist)))
+                (if entry
+                    (setf (cdr entry) ',(cdr bind))
+                  (push ',bind ,alist))))))
+
 (add-hook 'c-initialization-hook
           '(lambda ()
              (c-set-style "bsd")
@@ -164,8 +174,9 @@ with new ones represented as property list."
                            'brace-else-brace
                            'brace-elseif-brace
                            'defun-close-semi)
-             (add-to-list* 'c-hanging-braces-alist
-                           '(class-open after))))
+             (add-to-alist c-hanging-braces-alist
+                           (class-open after)
+                           (block-close . c-hack-snug-do-while))))
 
 ;;; Interaction Lisp mode
 (add-hook 'lisp-interaction-mode-hook
