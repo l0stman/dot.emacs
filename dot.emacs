@@ -66,7 +66,8 @@
       slime-lisp-implementations
       `((sbcl ("sbcl" "--core" ,*sbcl-core*)
 	      :init (lambda (port-file _)
-		      (format "(swank:start-server %S)\n" port-file)))))
+		      (format "(swank:start-server %S)\n" port-file))
+              :env ("SBCL_HOME=/usr/local/lib/sbcl/"))))
 
 (add-to-list 'load-path *slime-dir* (concat *slime-dir* "contrib"))
 (require 'slime-autoloads)
