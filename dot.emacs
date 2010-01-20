@@ -98,7 +98,8 @@
                    (otherwise 'dabbrev-expand))))))
 
 ;;;; Adding some hooks.
-;;; Make it easy to navigate by expression for programming mode.
+;;; Make it easy to navigate by expression for programming mode
+;;; and turn on flyspell.
 (defvar *prog-mode-list* '(paredit c sh awk)
   "List of programming mode names.")
 
@@ -114,13 +115,17 @@
 		 "C-M-b" backward-char
 		 "C-k" kill-sexp
 		 "C-M-k" paredit-kill
-		 "C-<backspace>" backward-kill-sexp))))
+		 "C-<backspace>" backward-kill-sexp)
+               (flyspell-prog-mode))))
 
 ;;; Text mode
-(add-hook 'text-mode-hook '(lambda () (refill-mode 1)))
+(add-hook 'text-mode-hook
+          '(lambda ()
+             (refill-mode 1)
+             (flyspell-mode 1)))
 
 ;;; CC mode
-(require 'cc-cmds-hack)                 ; slight modification of cc-cmds.el
+(require 'cc-cmds-hack)                 ; slight modifications of cc-cmds.el
 
 (add-hook 'c-initialization-hook
           '(lambda ()
