@@ -176,7 +176,8 @@
 (setq-default indent-tabs-mode nil      ; use spaces only for indentation
               show-trailing-whitespace t)
 
-(setq custom-file (concat *emacs-dir* "emacs-custom.el"))
+(setq default-major-mode 'text-mode
+      custom-file (concat *emacs-dir* "emacs-custom.el"))
 (load custom-file)
 
 (require 'keywiz)		    ; game to learn emacs key-bindings
