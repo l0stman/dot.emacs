@@ -64,7 +64,7 @@
       common-lisp-hyperspec-root *hyperspec-dir*
       slime-complete-symbol-function 'slime-fuzzy-complete-symbol
       slime-lisp-implementations
-      `((sbcl ("sbcl" "--core" ,*sbcl-core*)
+      `((sbcl ("sbcl" "--noinform" "--core" ,*sbcl-core*)
 	      :init (lambda (port-file _)
 		      (format "(swank:start-server %S)\n" port-file))
               :env ("SBCL_HOME=/usr/local/lib/sbcl/"))))
