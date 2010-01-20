@@ -60,8 +60,8 @@
 (defvar *sbcl-core* (concat *emacs-dir* "sbcl.core-with-swank"))
 (defvar *hyperspec-dir* "/usr/local/share/doc/clisp-hyperspec/HyperSpec/")
 
-(setq slime-net-coding-system 'utf-8-unix
-      common-lisp-hyperspec-root *hyperspec-dir*
+(setq slime-net-coding-system        'utf-8-unix
+      common-lisp-hyperspec-root     *hyperspec-dir*
       slime-complete-symbol-function 'slime-fuzzy-complete-symbol
       slime-lisp-implementations
       `((sbcl ("sbcl" "--noinform" "--core" ,*sbcl-core*)
@@ -117,7 +117,7 @@
 		 "C-<backspace>" backward-kill-sexp))))
 
 ;;; Text mode
-(add-hook 'text-mode-hook 'turn-on-auto-fill)
+(add-hook 'text-mode-hook '(lambda () (refill-mode 1)))
 
 ;;; CC mode
 (require 'cc-cmds-hack)                 ; slight modification of cc-cmds.el
