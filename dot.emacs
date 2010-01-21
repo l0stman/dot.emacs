@@ -145,10 +145,10 @@
              (add-to-list* 'c-cleanup-list
                            'comment-close-slash
                            'brace-else-brace
-                           'brace-elseif-brace
-                           'defun-close-semi)
+                           'brace-elseif-brace)
              (add-to-alist c-hanging-braces-alist
                            (class-open after)
+                           (class-close before)
                            (block-close . c-hack-snug-do-while))))
 
 ;;; Interaction Lisp mode
