@@ -129,8 +129,6 @@
 
 (add-hook 'c-initialization-hook
           '(lambda ()
-             (c-set-style "bsd")
-             (c-toggle-auto-newline)
              (defkeys c-mode-base-map
                "C-m" c-context-line-break
                "C-c RET" c-macro-expand
@@ -138,7 +136,12 @@
                "]" c-hack-bracket)
              (subskeys c-mode-base-map
                        c-electric-brace c-hack-electric-brace
-                       c-electric-paren c-hack-electric-paren)
+                       c-electric-paren c-hack-electric-paren)))
+
+(add-hook 'c-mode-common-hook
+          '(lambda ()
+             (c-set-style "bsd")
+             (c-toggle-auto-newline)
              (add-to-list* 'c-cleanup-list
                            'comment-close-slash
                            'brace-else-brace
