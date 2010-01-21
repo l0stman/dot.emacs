@@ -149,6 +149,7 @@
              (add-to-alist c-hanging-braces-alist
                            (class-open after)
                            (class-close before)
+                           (brace-list-close before)
                            (block-close . c-hack-snug-do-while))))
 
 ;;; Interaction Lisp mode
