@@ -15,8 +15,8 @@ functions in the key mapping map (the global one if null)."
 with new ones represented as property list."
   (eval-after-load "cl"
     '`(progn
-        ,@(loop for (new old) on funcs by #'cddr
-                collect `(substitute-key-definition ',new ',old ,map)))))
+        ,@(loop for (old new) on funcs by #'cddr
+                collect `(substitute-key-definition ',old ',new ,map)))))
 
 (defun symb (&rest args)
   "Produce a symbol from the lisp objects."
