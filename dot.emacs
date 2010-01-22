@@ -69,7 +69,7 @@
 		      (format "(swank:start-server %S)\n" port-file))
               :env ("SBCL_HOME=/usr/local/lib/sbcl/"))))
 
-(add-to-list 'load-path *slime-dir* (concat *slime-dir* "contrib"))
+(add-to-list* 'load-path *slime-dir* (concat *slime-dir* "contrib"))
 (require 'slime-autoloads)
 (slime-setup '(slime-repl slime-autodoc slime-fuzzy))
 
