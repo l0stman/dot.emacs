@@ -124,6 +124,12 @@
              (refill-mode 1)
              (flyspell-mode 1)))
 
+;;; Latex mode
+(add-hook 'latex-mode-hook
+          '(lambda ()
+             (refill-mode -1)
+             (auto-fill-mode 1)))
+
 ;;; CC mode
 (require 'cc-cmds-hack)                 ; modifications of cc-cmds.el
 
