@@ -33,6 +33,7 @@
   "H-h" help-command
   "H-s" slime-selector
   "H-r" query-replace
+  "H-v" scroll-other-window-down
 
   ;; Misc
   "C-m" reindent-then-newline-and-indent
