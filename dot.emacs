@@ -75,6 +75,7 @@
 (slime-setup '(slime-repl slime-autodoc slime-fuzzy))
 
 ;;;; For editing scheme code
+(setenv "PLTCOLLECTS" "/usr/local/share/plt")
 (require 'quack)
 
 ;;;; Paredit

@@ -2522,7 +2522,7 @@ follows draft,since a final version supercedes a draft version).")
                            "http://download.plt-scheme.org/doc/"
                            plt-name
                            "/"))
-              (index-name "index.htm")
+              (index-name "index.html")
               (col-dirs   quack-pltcollect-dirs))
           ;; Search from the collection directories for keywords and index
           ;; files.  Note that we currently look for keywords files even if
