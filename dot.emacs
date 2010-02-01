@@ -35,6 +35,9 @@
   "H-r" query-replace
   "H-v" scroll-other-window-down
 
+  ;; Super
+  "s-k" kmacro-keymap
+  
   ;; Misc
   "C-m" reindent-then-newline-and-indent
   "C-w" backward-kill-word
