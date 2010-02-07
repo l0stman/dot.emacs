@@ -1,12 +1,15 @@
 ;;;; -*-Emacs-Lisp-*-
 
-(defvar *emacs-dir* "/home/l0stman/.emacs.d/"
+(defvar *emacs-dir* (expand-file-name "~/.emacs.d")
   "Emacs personal root directory.")
 
-(defun add-to-list* (lst &rest args)
+(defsubst full-path (file)
+  (expand-file-name file *emacs-dir*))
+
+(defsubst add-to-list* (lst &rest args)
   (dolist (fn args) (add-to-list lst fn)))
 
-(add-to-list* 'load-path *emacs-dir* (concat *emacs-dir* "lib"))
+(add-to-list* 'load-path *emacs-dir* (full-path "lib"))
 
 (require 'utils)                   ; Some utility macros and functions
 
@@ -37,7 +40,7 @@
 
   ;; Super
   "s-k" kmacro-keymap
-  
+
   ;; Misc
   "C-m" reindent-then-newline-and-indent
   "C-w" backward-kill-word
@@ -60,8 +63,8 @@
      (color-theme-djcb-dark)))
 
 ;;;; SLIME configuration for Common Lisp
-(defvar *slime-dir* "/usr/local/share/emacs/23.0.95/site-lisp/slime/")
-(defvar *sbcl-core* (concat *emacs-dir* "sbcl.core-with-swank"))
+(defvar *slime-dir* (file-name-directory (locate-library "slime")))
+(defvar *sbcl-core* (full-path "sbcl.core-with-swank"))
 (defvar *hyperspec-dir* "/usr/local/share/doc/clisp-hyperspec/HyperSpec/")
 
 (setq slime-net-coding-system        'utf-8-unix
@@ -75,7 +78,7 @@
 
 (add-to-list* 'load-path *slime-dir* (concat *slime-dir* "contrib"))
 (require 'slime-autoloads)
-(slime-setup '(slime-repl slime-autodoc slime-fuzzy))
+(slime-setup '(slime-repl slime-autodoc slime-fuzzy slime-fancy-inspector))
 
 ;;;; For editing scheme code
 (setenv "PLTCOLLECTS" "/usr/local/share/plt")
@@ -192,7 +195,7 @@
               show-trailing-whitespace t)
 
 (setq default-major-mode 'text-mode
-      custom-file (concat *emacs-dir* "emacs-custom.el"))
+      custom-file (full-path "emacs-custom.el"))
 (load custom-file)
 
 (require 'keywiz)		    ; game to learn emacs key-bindings
