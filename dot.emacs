@@ -184,6 +184,17 @@
 	       "C-c s" slime-repl-next-matching-input
 	       "C-c r" slime-repl-previous-matching-input)))
 
+;;; MIXAL mode
+(require 'mixvm)
+
+(add-hook 'mixal-mode-hook
+          '(lambda ()
+             (defkeys mixal-mode-map
+               "C-h" backward-delete-char-untabify
+               "C-m" newline-and-indent
+               "C-j" newline
+               "H-h o" mixal-describe-operation-code)))
+
 ;;;; Misc
 (when (eq window-system 'x)
   (setq browse-url-browser-function 'browse-url-firefox
