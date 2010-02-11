@@ -119,7 +119,7 @@
 ;;;; Adding some hooks.
 ;;; Make it easy to navigate by expression for programming mode
 ;;; and turn on flyspell.
-(defvar *prog-mode-list* '(paredit c sh awk)
+(defvar *prog-mode-list* '(paredit c sh awk mixal)
   "List of programming mode names.")
 
 (dolist (name *prog-mode-list*)
@@ -143,11 +143,12 @@
              (refill-mode 1)
              (flyspell-mode 1)))
 
-;;; Latex mode
-(add-hook 'latex-mode-hook
-          '(lambda ()
-             (refill-mode -1)
-             (auto-fill-mode 1)))
+;;; Latex and HTML mode
+(dolist (name '(latex html))
+  (add-hook (symb name '-mode-hook)
+            '(lambda ()
+               (refill-mode -1)
+               (auto-fill-mode 1))))
 
 ;;; CC mode
 (require 'cc-cmds-hack)                 ; modifications of cc-cmds.el
