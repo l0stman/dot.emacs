@@ -13,19 +13,6 @@
 
 (require 'utils)                   ; Some utility macros and functions
 
-;;;; Some utilities
-(defun join-next-line ()
-  "Join the current line with the next one."
-  (interactive "*")
-  (join-line 1))
-
-(defun compose-french ()
-  "Compose a text in French."
-  (interactive "*")
-  (text-mode)
-  (set-input-method 'latin-1-prefix)
-  (ispell-change-dictionary "francais"))
-
 ;;;; Global key bindings
 (defkeys nil
   ;; Function keys

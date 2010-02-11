@@ -35,4 +35,16 @@ yet.  Otherwise update the corresponding entries."
                         (push ',bind ,alist))))
                bindings)))
 
+(defun join-next-line ()
+  "Join the current line with the next one."
+  (interactive "*")
+  (join-line 1))
+
+(defun compose-french ()
+  "Compose a text in French."
+  (interactive "*")
+  (text-mode)
+  (set-input-method 'latin-1-prefix)
+  (ispell-change-dictionary "francais"))
+
 (provide 'utils)
