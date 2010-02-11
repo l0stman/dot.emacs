@@ -22,10 +22,9 @@
 (defun compose-french ()
   "Compose a text in French."
   (interactive "*")
-  (let ((default-input-method 'latin-1-prefix))
-    (text-mode)
-    (toggle-input-method)
-    (ispell-change-dictionary "francais")))
+  (text-mode)
+  (set-input-method 'latin-1-prefix)
+  (ispell-change-dictionary "francais"))
 
 ;;;; Global key bindings
 (defkeys nil
