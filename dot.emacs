@@ -67,8 +67,10 @@
       slime-complete-symbol-function 'slime-fuzzy-complete-symbol
       slime-lisp-implementations
       `((sbcl ("sbcl" "--noinform" "--core" ,*sbcl-core*)
-	      :init (lambda (port-file _)
-		      (format "(swank:start-server %S)\n" port-file))
+	      :init (lambda (port-file enc)
+		      (format "(swank:start-server %S :coding-system \"%s\")\n"
+                              port-file
+                              enc))
               :env ("SBCL_HOME=/usr/local/lib/sbcl/"))))
 
 (add-to-list* 'load-path
