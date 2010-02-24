@@ -27,13 +27,14 @@ with new ones represented as property list."
 (defmacro add-to-alist (alist &rest bindings)
   "Add the entries to an association list if they aren't there
 yet.  Otherwise update the corresponding entries."
-  `(progn
-     ,@(mapcar #'(lambda (bind)
-                   `(let ((entry (assq ',(car bind) ,alist)))
-                      (if entry
-                          (setf (cdr entry) ',(cdr bind))
-                        (push ',bind ,alist))))
-               bindings)))
+  (let ((entry (gensym)))
+   `(progn
+      ,@(mapcar #'(lambda (bind)
+                    `(let ((,entry (assq ',(car bind) ,alist)))
+                       (if ,entry
+                           (setf (cdr ,entry) ',(cdr bind))
+                         (push ',bind ,alist))))
+                bindings))))
 
 (defun join-next-line ()
   "Join the current line with the next one."
