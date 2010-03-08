@@ -194,6 +194,12 @@
                "C-j" newline
                "H-h o" mixal-describe-operation-code)))
 
+;;; awk mode
+(add-hook 'awk-mode-hook
+          '(lambda ()
+             (add-to-alist c-hanging-braces-alist
+                           (defun-open after))))
+
 ;;;; Misc
 (when (eq window-system 'x)
   (setq browse-url-browser-function 'browse-url-firefox
