@@ -44,6 +44,8 @@ yet.  Otherwise update the corresponding entries."
 (defun compose-french ()
   "Compose a text in French."
   (interactive "*")
+  (unless (looking-at "[ \t]*\n")
+    (insert ?\n))
   (text-mode)
   (set-input-method 'latin-1-prefix)
   (ispell-change-dictionary "francais"))
