@@ -79,8 +79,11 @@
 (require 'slime-autoloads)
 (slime-setup '(slime-repl slime-autodoc slime-fuzzy slime-fancy-inspector))
 
-;;;; For editing scheme code
+;;;; For editing scheme code.
 (require 'quack)
+
+;;;; Interface for the git version control system.
+(require 'git)
 
 ;;;; Paredit
 (autoload 'paredit-mode "paredit"
