@@ -84,6 +84,7 @@
 
 ;;;; Interface for the git version control system.
 (require 'git)
+(require 'gitsum)
 
 ;;;; Paredit
 (autoload 'paredit-mode "paredit"
