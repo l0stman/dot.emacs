@@ -148,14 +148,7 @@
           '(lambda ()
              (defkeys c-mode-base-map
                "C-m" c-context-line-break
-               "C-c RET" c-macro-expand
-               "[" c-hack-bracket
-               "]" c-hack-bracket
-               "M-s" c-hack-splice-sexp
-               "M-r" c-hack-raise-sexp)
-             (subskeys c-mode-base-map
-                       c-electric-brace c-hack-electric-brace
-                       c-electric-paren c-hack-electric-paren)))
+               "C-c RET" c-macro-expand)))
 
 (add-hook 'c-mode-common-hook
           '(lambda ()
