@@ -142,7 +142,7 @@
                (auto-fill-mode 1))))
 
 ;;; CC mode
-(require 'cc-cmds-hack)                 ; modifications of cc-cmds.el
+(require 'c-hack)                 ; modifications of cc-cmds.el
 
 (add-hook 'c-initialization-hook
           '(lambda ()
