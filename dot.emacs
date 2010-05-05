@@ -142,7 +142,7 @@
                (auto-fill-mode 1))))
 
 ;;; CC mode
-(autoload 'c-hack-mode "c-hack"
+(autoload 'plunder-mode "plunder"
   "Minor mode for structurally editing C code."
   t)
 
@@ -167,7 +167,7 @@ works with macros."
           '(lambda ()
              (c-set-style "bsd")
              (c-toggle-auto-newline)
-             (c-hack-mode +1)
+             (plunder-mode +1)
              (add-to-list* 'c-cleanup-list
                            'comment-close-slash
                            'brace-else-brace
