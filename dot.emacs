@@ -152,6 +152,17 @@
                "C-m" c-context-line-break
                "C-c RET" c-macro-expand)))
 
+(defun new-c-snug-do-while (syntax pos)
+  "This function is a modified version of `c-snug-do-while' that
+works with macros."
+  (save-excursion
+    (if (and (eq syntax 'block-close)
+             (progn (backward-up-list)
+                    (c-forward-sexp -1)
+                    (looking-at "\\<do\\>[^_]")))
+        '(before)
+      '(before after))))
+
 (add-hook 'c-mode-common-hook
           '(lambda ()
              (c-set-style "bsd")
@@ -165,7 +176,7 @@
                            (class-open after)
                            (class-close before)
                            (brace-list-close before)
-                           (block-close . c-hack-snug-do-while))))
+                           (block-close . new-c-snug-do-while))))
 
 ;;; Interaction Lisp mode
 (add-hook 'lisp-interaction-mode-hook
