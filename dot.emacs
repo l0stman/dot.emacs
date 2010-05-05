@@ -142,7 +142,9 @@
                (auto-fill-mode 1))))
 
 ;;; CC mode
-(require 'c-hack)                 ; modifications of cc-cmds.el
+(autoload 'c-hack-mode "c-hack"
+  "Minor mode for structurally editing C code."
+  t)
 
 (add-hook 'c-initialization-hook
           '(lambda ()
@@ -154,6 +156,7 @@
           '(lambda ()
              (c-set-style "bsd")
              (c-toggle-auto-newline)
+             (c-hack-mode +1)
              (add-to-list* 'c-cleanup-list
                            'comment-close-slash
                            'brace-else-brace
