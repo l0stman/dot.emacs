@@ -42,7 +42,8 @@
   "C-x C-k" kill-region
   "C-h" backward-delete-char-untabify
   "C-c k" join-line
-  "C-c j" join-next-line)
+  "C-c j" join-next-line
+  "C-c f" find-library)
 
 (define-key isearch-mode-map "\C-h" 'isearch-delete-char)
 
