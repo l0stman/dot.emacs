@@ -225,7 +225,9 @@ works with macros."
               show-trailing-whitespace t)
 
 (setq default-major-mode 'text-mode
-      custom-file (full-path "emacs-custom.el"))
+      custom-file (full-path "emacs-custom.el")
+      backup-by-copying t
+      backup-directory-alist `((".*" . ,temporary-file-directory)))
 (load custom-file)
 
 (require 'keywiz)		    ; game to learn emacs key-bindings
