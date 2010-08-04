@@ -72,7 +72,8 @@
 		      (format "(swank:start-server %S :coding-system \"%s\")\n"
                               port-file
                               enc))
-              :env ("SBCL_HOME=/usr/local/lib/sbcl/"))))
+              :env ("SBCL_HOME=/usr/local/lib/sbcl/"))
+        (ccl ("ccl" "--terminal-encoding" "utf-8"))))
 
 (add-to-list* 'load-path
               *slime-dir*
