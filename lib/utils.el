@@ -41,12 +41,13 @@ yet.  Otherwise update the corresponding entries."
   (interactive "*")
   (join-line 1))
 
-(defun compose-french ()
-  "Compose a text in French."
-  (interactive "*")
+(defun compose-french (arg)
+  "Compose a text in French.  With a prefix argument, inserts two
+newlines at point."
+  (interactive "*P")
   (save-excursion
-   (unless (looking-at "[ \t]*\n")
-     (insert "\n\n")))
+   (when arg
+      (insert "\n\n")))
   (text-mode)
   (set-input-method 'latin-1-prefix)
   (ispell-change-dictionary "francais"))
