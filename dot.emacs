@@ -226,12 +226,12 @@ works with macros."
   ;; start an emacs server
   (server-start))
 
-(setq-default indent-tabs-mode nil      ; use spaces only for indentation
+(setq-default indent-tabs-mode         nil ; use spaces only for indentation
               show-trailing-whitespace t)
 
-(setq default-major-mode 'text-mode
-      custom-file (full-path "emacs-custom.el")
-      backup-by-copying t
+(setq default-major-mode     'text-mode
+      custom-file            (full-path "emacs-custom.el")
+      backup-by-copying      t
       backup-directory-alist `((".*" . ,temporary-file-directory)))
 (load custom-file)
 
