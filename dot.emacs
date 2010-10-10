@@ -93,6 +93,10 @@
   "Minor mode for pseudo-structurally editing Lisp code."
   t)
 
+(require 'lisp-indent)
+(eval-after-load "paredit"
+  '(define-key paredit-mode-map (kbd "H-)") 'paredit-lisp-indent-assign))
+
 (defvar *paredit-mode-list*
   '(lisp scheme emacs-lisp lisp-interaction slime-repl inferior-scheme)
   "List of major modes using paredit.")
