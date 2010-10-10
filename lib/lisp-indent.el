@@ -1,6 +1,8 @@
 (eval-when-compile
-  (require 'cl)
-  (require 'paredit))
+  (require 'cl))
+
+(declare-function paredit-forward "paredit" nil)
+(declare-function paredit-close-round "paredit" nil)
 
 (defun simple-parse-assign (beg-sexp end-sexp)
   (save-excursion
