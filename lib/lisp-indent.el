@@ -47,11 +47,7 @@
               (insert-parentheses)
               (insert (car sexp) ?\ )
               (loop for (var val) on (cdr sexp) by #'cddr do
-                    (insert
-                     (format "%s%s%s"
-                             var
-                             (substring pad (length var))
-                             val))
+                    (insert var (substring pad (length var)) val)
                     (reindent-then-newline-and-indent))
               (paredit-close-round))))
       (error
