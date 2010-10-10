@@ -28,9 +28,13 @@
                   (when (and (even? argc) (> len maxlen))
                     (setq maxlen len)))))))))
 
-(defun new-paredit-close-round ()
-  "Just like `paredit-close-round' except that arguments to setq
-and setf are aligned automatically."
+(defun paredit-lisp-indent-assign ()
+  "Close parenthesis and align the values in a lisp assignment automatically.
+\(setf (car x) 0 |b 3 c 4)
+-->
+\(setf (car x) 0
+      b       3
+      c       4)|"
   (interactive "*")
   (let ((orig (point)))
     (condition-case err
@@ -38,20 +42,18 @@ and setf are aligned automatically."
           (backward-up-list)
           (let* ((beg (point))
                  (end (scan-sexps beg 1)))
-            (if (looking-at "(set[qf]")
-                (multiple-value-bind (sexp pad) (simple-parse-assign beg end)
-                  (delete-region beg end)
-                  (insert-parentheses)
-                  (insert (car sexp) ?\ )
-                  (loop for (var val) on (cdr sexp) by #'cddr do
-                        (insert
-                         (format "%s%s%s"
-                                 var
-                                 (substring pad (length var))
-                                 val))
-                        (reindent-then-newline-and-indent))
-                  (paredit-close-round))
-              (forward-sexp))))
+            (multiple-value-bind (sexp pad) (simple-parse-assign beg end)
+              (delete-region beg end)
+              (insert-parentheses)
+              (insert (car sexp) ?\ )
+              (loop for (var val) on (cdr sexp) by #'cddr do
+                    (insert
+                     (format "%s%s%s"
+                             var
+                             (substring pad (length var))
+                             val))
+                    (reindent-then-newline-and-indent))
+              (paredit-close-round))))
       (error
        (goto-char orig)
        (message "%s" (error-message-string err))))))
