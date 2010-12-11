@@ -49,7 +49,8 @@
               (loop for (var val) on (cdr sexp) by #'cddr do
                     (insert var (substring pad (length var)) val)
                     (reindent-then-newline-and-indent))
-              (paredit-close-round))))
+              (paredit-close-round)
+              (paredit-reindent-defun))))
       (error
        (goto-char orig)
        (message "%s" (error-message-string err))))))
