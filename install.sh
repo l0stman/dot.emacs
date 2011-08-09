@@ -9,6 +9,10 @@ EMACSDIR=$HOME/.emacs.d
 SLIME="/usr/local/share/emacs/`emacs_version`/site-lisp/slime"
 CORE="${EMACSDIR}/sbcl.core-with-swank"
 
+if [ ! -d ${EMACSDIR} ]
+then
+	mkdir ${EMACSDIR}
+fi
 cp xmodmaprc ~/.xmodmaprc
 cp dot.emacs ~/.emacs
 cp emacs-custom.el ${EMACSDIR}
