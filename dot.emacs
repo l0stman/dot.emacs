@@ -221,8 +221,7 @@ works with macros."
 
 ;;;; Misc
 (when (eq window-system 'x)
-  (setq browse-url-browser-function 'browse-url-firefox
-	browse-url-firefox-program "firefox3")
+  (setq browse-url-browser-function 'browse-url-firefox)
   ;; start an emacs server
   (server-start))
 
