@@ -1,5 +1,5 @@
 ;;; plunder.el -- minor mode for structurally editing C code.
-;;; Copyright (C) 2010 rrl <endian.sign@gmail.com>
+;;; Copyright (C) 2010-2011 rrl <endian.sign@gmail.com>
 
 ;;; Repository: http://github.com/l0stman/plunder
 
@@ -364,7 +364,13 @@ a * (b + |c) * d -> a * b + |c * d"
       (delete-backward-char 1)
       (goto-char p)
       (delete-char 1)
-      (insert-blank))))
+      (insert-blank)
+      (delete-trailing-whitespace)
+      (condition-case nil
+          (progn
+            (plunder-backward-up-list)
+            (c-indent-exp))
+        ((Scan error) nil)))))
 
 (defun plunder-wrap-sexp (open close)
   (multiple-value-bind (sexp beg end) (sexp-or-region)
@@ -402,8 +408,11 @@ braces and indent the expression.
         (setq beg (region-beginning)
               end (region-end))
       (setq beg (point)
-            end (save-excursion (c-end-of-statement) (point))))
-    (let ((sexp (buffer-substring beg end))
+            end (progn (c-end-of-statement) (point))))
+    (let ((sexp (buffer-substring (progn (goto-char beg)
+                                         (skip-chars-forward " \t\n")
+                                         (point))
+                                  end))
           (last-command-event ?\{))
       (delete-region beg end)
       (plunder-electric-brace nil)
