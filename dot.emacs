@@ -62,14 +62,18 @@
 (defvar *slime-dir* (file-name-directory (locate-library "slime")))
 (defvar *sbcl-core* (full-path "sbcl.core-with-swank"))
 (defvar *hyperspec-dir* "/usr/local/share/doc/clisp-hyperspec/HyperSpec/")
+(defvar *fasls-dir* "/tmp/slime-fasls/")
+
+(make-directory *fasls-dir* t)
 
 (setq slime-net-coding-system        'utf-8-unix
       common-lisp-hyperspec-root     *hyperspec-dir*
       slime-complete-symbol-function 'slime-fuzzy-complete-symbol
+      slime-compile-file-options     `(:fasl-directory ,*fasls-dir*)
       slime-lisp-implementations
       `((sbcl ("sbcl" "--noinform" "--core" ,*sbcl-core*)
-	      :init (lambda (port-file enc)
-		      (format "(swank:start-server %S :coding-system \"%s\")\n"
+              :init (lambda (port-file enc)
+                      (format "(swank:start-server %S :coding-system \"%s\")\n"
                               port-file
                               enc))
               :env ("SBCL_HOME=/usr/local/lib/sbcl/"))
