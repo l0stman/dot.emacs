@@ -120,7 +120,7 @@
 ;;;; Adding some hooks.
 ;;; Make it easy to navigate by expression for programming mode
 ;;; and turn on flyspell.
-(defvar *prog-mode-list* '(paredit c sh awk mixal)
+(defvar *prog-mode-list* '(paredit c sh awk mixal octave inferior-octave)
   "List of programming mode names.")
 
 (dolist (name *prog-mode-list*)
@@ -222,6 +222,10 @@ works with macros."
           '(lambda ()
              (add-to-alist c-hanging-braces-alist
                            (defun-open after))))
+
+;;; Octave mode
+(autoload 'octave-mode "octave-mod" nil t)
+(push '("\\.m$" . octave-mode) auto-mode-alist)
 
 ;;;; Misc
 (when (eq window-system 'x)
