@@ -5,6 +5,8 @@
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  '(help-char 63)
+ '(inferior-octave-startup-args (quote ("-q" "--traditional")))
+ '(octave-auto-newline t)
  '(quack-fontify-style (quote emacs))
  '(quack-newline-behavior (quote indent-newline-indent))
  '(quack-pltcollect-dirs (quote ("/usr/local/share/racket" "/usr/local/lib/racket/collects")))
