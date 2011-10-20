@@ -226,6 +226,10 @@ works with macros."
 ;;; Octave mode
 (autoload 'octave-mode "octave-mod" nil t)
 (push '("\\.m$" . octave-mode) auto-mode-alist)
+(add-hook 'octave-mode-hook
+          '(lambda ()
+             (define-key octave-mode-map
+               (kbd "<tab>") 'octave-complete-symbol)))
 
 ;;;; Misc
 (when (eq window-system 'x)
