@@ -13,7 +13,12 @@
       (flet ((even? (n) (eq (logand n 1) 0)))
         (loop do
               (let ((beg (progn (skip-chars-forward " \n") (point)))
-                    (end (progn (paredit-forward) (point))))
+                    (end (progn
+                           (paredit-forward)
+                           (when (and (even? argc)
+                                      (looking-at "[ \t]*;"))
+                             (move-end-of-line 1))
+                           (point))))
                 (when (>= end end-sexp)
                   (if (even? argc)
                       (error "odd number of args in %s"
