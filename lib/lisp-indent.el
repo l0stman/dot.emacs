@@ -7,31 +7,30 @@
 (defun simple-parse-assign (beg-sexp end-sexp)
   (save-excursion
     (down-list)
-    (let ((maxlen 0)
-          (argc 0)
-          (res nil))
-      (flet ((even? (n) (eq (logand n 1) 0)))
-        (loop do
-              (let ((beg (progn (skip-chars-forward " \n") (point)))
-                    (end (progn
-                           (paredit-forward)
-                           (when (and (even? argc)
-                                      (looking-at "[ \t]*;"))
-                             (move-end-of-line 1))
-                           (point))))
-                (when (>= end end-sexp)
-                  (if (even? argc)
-                      (error "odd number of args in %s"
-                             (buffer-substring-no-properties beg-sexp
-                                                             end-sexp))
-                    (return (values (nreverse res)
-                                    (make-string (1+ maxlen) ?\ )))))
-                (incf argc)
-                (let* ((exp (buffer-substring-no-properties beg end))
-                       (len (length exp)))
-                  (push exp res)
-                  (when (and (even? argc) (> len maxlen))
-                    (setq maxlen len)))))))))
+    (flet ((even? (n) (eq (logand n 1) 0)))
+      (loop with maxlen = 0
+            with argc = 0
+            with res = nil
+            do (let ((beg (progn (skip-chars-forward " \n") (point)))
+                     (end (progn
+                            (paredit-forward)
+                            (when (and (even? argc)
+                                       (looking-at "[ \t]*;"))
+                              (move-end-of-line 1))
+                            (point))))
+                 (when (>= end end-sexp)
+                   (if (even? argc)
+                       (error "odd number of args in %s"
+                              (buffer-substring-no-properties beg-sexp
+                                                              end-sexp))
+                     (return (values (nreverse res)
+                                     (make-string (1+ maxlen) ?\ )))))
+                 (incf argc)
+                 (let* ((exp (buffer-substring-no-properties beg end))
+                        (len (length exp)))
+                   (push exp res)
+                   (when (and (even? argc) (> len maxlen))
+                     (setq maxlen len))))))))
 
 (defun paredit-lisp-indent-assign ()
   "Close parenthesis and align the values in a lisp assignment automatically.
