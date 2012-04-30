@@ -42,8 +42,8 @@ yet.  Otherwise update the corresponding entries."
   (join-line 1))
 
 (defun reply-mail (arg)
-  "Insert an empty space between the quoted email you replying to
-and your answer.  With a prefix argument, compose in French."
+  "Insert an empty space between the quoted email you're replying
+to and your answer.  With a prefix argument, compose in French."
   (interactive "*P")
   (when arg
     (set-input-method 'latin-1-prefix)
