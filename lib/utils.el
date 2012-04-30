@@ -41,15 +41,21 @@ yet.  Otherwise update the corresponding entries."
   (interactive "*")
   (join-line 1))
 
-(defun compose-french (arg)
-  "Compose a text in French.  With a prefix argument, inserts two
-newlines at point."
+(defun reply-mail (arg)
+  "Insert an empty space between the quoted email you replying to
+and your answer.  With a prefix argument, compose in French."
   (interactive "*P")
+  (when arg
+    (set-input-method 'latin-1-prefix)
+    (ispell-change-dictionary "francais"))
+  (beginning-of-buffer)
   (save-excursion
-   (when arg
-      (insert "\n\n")))
-  (text-mode)
-  (set-input-method 'latin-1-prefix)
-  (ispell-change-dictionary "francais"))
+   (let ((start (point))
+         (end (progn (skip-chars-forward " \t\n") (point))))
+     (when (and (< (count-lines start end) 3)
+                (/= start (point-max)))
+       (delete-region start end)
+       (insert "\n\n"))))
+  (text-mode))
 
 (provide 'utils)
