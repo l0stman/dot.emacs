@@ -45,17 +45,17 @@ yet.  Otherwise update the corresponding entries."
   "Insert an empty space between the quoted email you're replying
 to and your answer.  With a prefix argument, compose in French."
   (interactive "*P")
-  (when arg
-    (set-input-method 'latin-1-prefix)
-    (ispell-change-dictionary "francais"))
   (beginning-of-buffer)
   (save-excursion
-   (let ((start (point))
-         (end (progn (skip-chars-forward " \t\n") (point))))
-     (when (and (< (count-lines start end) 3)
-                (/= start (point-max)))
-       (delete-region start end)
-       (insert "\n\n"))))
-  (text-mode))
+    (let ((start (point))
+          (end (progn (skip-chars-forward " \t\n") (point))))
+      (when (and (< (count-lines start end) 3)
+                 (/= start (point-max)))
+        (delete-region start end)
+        (insert "\n\n"))))
+  (text-mode)
+  (when arg
+    (set-input-method 'latin-1-prefix)
+    (ispell-change-dictionary "francais")))
 
 (provide 'utils)
