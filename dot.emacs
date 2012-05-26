@@ -101,6 +101,11 @@
 (eval-after-load "paredit"
   '(define-key paredit-mode-map (kbd "H-)") 'paredit-lisp-indent-assign))
 
+;;; Yaml
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
+(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+
 (defvar *paredit-mode-list*
   '(lisp scheme emacs-lisp lisp-interaction slime-repl inferior-scheme)
   "List of major modes using paredit.")
