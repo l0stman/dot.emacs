@@ -9,7 +9,10 @@
 (defsubst add-to-list* (lst &rest args)
   (dolist (fn args) (add-to-list lst fn)))
 
-(add-to-list* 'load-path *emacs-dir* (full-path "lib"))
+(add-to-list* 'load-path
+	      *emacs-dir*
+	      (full-path "lib")
+	      (expand-file-name "~/hacks/slime"))
 
 (require 'utils)                   ; Some utility macros and functions
 
@@ -73,9 +76,7 @@
       slime-lisp-implementations
       `((sbcl ("sbcl" "--noinform" "--core" ,*sbcl-core*)
               :init (lambda (port-file enc)
-                      (format "(swank:start-server %S :coding-system \"%s\")\n"
-                              port-file
-                              enc))
+                      (format "(swank:start-server %S)\n" port-file))
               :env ("SBCL_HOME=/usr/local/lib/sbcl/"))
         (ccl ("ccl" "--terminal-encoding" "utf-8"))))
 
