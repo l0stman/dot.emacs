@@ -45,7 +45,7 @@ yet.  Otherwise update the corresponding entries."
   "Insert an empty space between the quoted email you're replying
 to and your answer.  With a prefix argument, compose in French."
   (interactive "*P")
-  (beginning-of-buffer)
+  (goto-char (point-min))
   (save-excursion
     (let ((start (point))
           (end (progn (skip-chars-forward " \t\n") (point))))
