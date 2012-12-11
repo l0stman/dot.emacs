@@ -1,7 +1,7 @@
 #!/bin/sh -x
 
 EMACSDIR=$HOME/.emacs.d
-SLIME="~/hacks/slime"
+SLIME="$HOME/hacks/slime"
 CORE="${EMACSDIR}/sbcl.core-with-swank"
 
 if [ ! -d ${EMACSDIR} ]
