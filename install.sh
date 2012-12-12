@@ -4,11 +4,17 @@ EMACSDIR=$HOME/.emacs.d
 SLIME="$HOME/hacks/slime"
 CORE="${EMACSDIR}/sbcl.core-with-swank"
 
+case $1 in
+    T60) XMODMAPRC=xmodmaprc.T60;;
+    desktop) XMODMAPRC=xmodmaprc.desktop;;
+    *) echo "Usage: `basename $0` [T60 | desktop]";;
+esac
+
 if [ ! -d ${EMACSDIR} ]
 then
 	mkdir ${EMACSDIR}
 fi
-cp xmodmaprc ~/.xmodmaprc
+cp $XMODMAPRC ~/.xmodmaprc
 cp dot.emacs ~/.emacs
 cp emacs-custom.el ${EMACSDIR}
 
