@@ -7,7 +7,7 @@ CORE="${EMACSDIR}/sbcl.core-with-swank"
 case $1 in
     T60) XMODMAPRC=xmodmaprc.T60;;
     desktop) XMODMAPRC=xmodmaprc.desktop;;
-    *) echo "Usage: `basename $0` [T60 | desktop]";;
+    *) echo "Usage: `basename $0` [T60 | desktop]"; exit 1;;
 esac
 
 if [ ! -d ${EMACSDIR} ]
