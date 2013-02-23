@@ -127,7 +127,8 @@
 ;;; Make it easy to navigate by expression for programming mode
 ;;; and turn on flyspell.
 (defvar *prog-mode-list*
-  '(paredit c c++ sh awk mixal octave inferior-octave python inferior-python)
+  '(paredit c c++ sh awk mixal octave inferior-octave python inferior-python
+            java)
   "List of programming mode names.")
 
 (dolist (name *prog-mode-list*)
