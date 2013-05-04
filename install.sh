@@ -14,7 +14,7 @@ if [ ! -d ${EMACSDIR} ]
 then
 	mkdir ${EMACSDIR}
 fi
-cp $XMODMAPRC ~/.xmodmaprc
+cp $XMODMAPRC ~/.Xmodmap
 cp dot.emacs ~/.emacs
 cp emacs-custom.el ${EMACSDIR}
 
