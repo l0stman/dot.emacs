@@ -3,6 +3,7 @@
 EMACSDIR=$HOME/.emacs.d
 SLIME="$HOME/hacks/slime"
 CORE="${EMACSDIR}/sbcl.core-with-swank"
+DEVCORE="${EMACSDIR}/sbcl-devel.core-with-swank"
 
 case $1 in
     T60) XMODMAPRC=xmodmaprc.T60;;
@@ -24,7 +25,15 @@ cp -R lib "$EMACSDIR"
 rm -f lib/*.elc
 
 # Generate an image containing the Swank server for SBCL.
-sbcl <<EOF
+savecore ()
+{
+    local sbcl=$1
+    local core=$2
+    $sbcl <<EOF
 (load "${SLIME}/swank-loader.lisp")
-(swank-loader:dump-image "${CORE}")
+(swank-loader:dump-image "${core}")
 EOF
+}
+
+savecore /usr/local/bin/sbcl $CORE
+savecore $HOME/bin/sbcl $DEVCORE

@@ -64,6 +64,7 @@
 ;;;; SLIME configuration for Common Lisp
 (defvar *slime-dir* (file-name-directory (locate-library "slime")))
 (defvar *sbcl-core* (full-path "sbcl.core-with-swank"))
+(defvar *sbcl-dev-core* (full-path "sbcl-devel.core-with-swank"))
 (defvar *hyperspec-dir* "/usr/local/share/doc/clisp-hyperspec/HyperSpec/")
 (defvar *fasls-dir* "/tmp/slime-fasls/")
 
@@ -78,6 +79,12 @@
               :init (lambda (port-file enc)
                       (format "(swank:start-server %S)\n" port-file))
               :env ("SBCL_HOME=/usr/local/lib/sbcl/"))
+        (sbcl-devel (,(expand-file-name "~/bin/sbcl") "--noinform" "--core"
+                     ,*sbcl-dev-core*)
+                    :init (lambda (port-file enc)
+                            (format "(swank:start-server %S)\n" port-file))
+                    :env (,(concat "SBCL_HOME="
+                                   (expand-file-name "~/lib/sbcl"))))
         (ccl ("ccl" "--terminal-encoding" "utf-8"))))
 
 (add-to-list* 'load-path
