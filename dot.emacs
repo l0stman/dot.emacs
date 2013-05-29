@@ -219,7 +219,8 @@ works with macros."
 	  '(lambda ()
 	     (defkeys slime-repl-mode-map
 	       "C-c s" slime-repl-next-matching-input
-	       "C-c r" slime-repl-previous-matching-input)))
+	       "C-c r" slime-repl-previous-matching-input
+               "C-c M-i" slime-inspect-definition)))
 
 ;;; MIXAL mode
 (require 'mixvm)
