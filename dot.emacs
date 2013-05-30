@@ -91,7 +91,8 @@
               *slime-dir*
               (expand-file-name "contrib" *slime-dir*))
 (require 'slime-autoloads)
-(slime-setup '(slime-repl slime-autodoc slime-fuzzy slime-fancy-inspector))
+(slime-setup '(slime-repl slime-autodoc slime-fuzzy slime-fancy-inspector
+                          slime-indentation slime-presentations))
 
 ;;;; For editing scheme code.
 (require 'quack)
@@ -212,7 +213,8 @@ works with macros."
 (add-hook 'slime-mode-hook
 	  '(lambda ()
 	     (unless (slime-connected-p)
-	       (save-excursion (slime)))))
+	       (save-excursion (slime)))
+             (common-lisp-set-style 'modern)))
 
 ;;; SLIME repl mode
 (add-hook 'slime-repl-mode-hook
