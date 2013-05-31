@@ -84,7 +84,7 @@
                     :init (lambda (port-file enc)
                             (format "(swank:start-server %S)\n" port-file))
                     :env (,(concat "SBCL_HOME="
-                                   (expand-file-name "~/lib/sbcl"))))
+                                   (expand-file-name "~/.local/lib/sbcl"))))
         (ccl ("ccl" "--terminal-encoding" "utf-8"))))
 
 (add-to-list* 'load-path
