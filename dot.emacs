@@ -214,7 +214,8 @@ works with macros."
 	  '(lambda ()
 	     (unless (slime-connected-p)
 	       (save-excursion (slime)))
-             (common-lisp-set-style 'modern)))
+             (common-lisp-set-style 'modern)
+             (defkeys slime-mode-map "C-c M-i" slime-inspect-definition)))
 
 ;;; SLIME repl mode
 (add-hook 'slime-repl-mode-hook
