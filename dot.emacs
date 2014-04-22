@@ -204,6 +204,11 @@ works with macros."
                            (brace-list-close before)
                            (block-close . new-c-snug-do-while))))
 
+;;; C++ mode
+(add-hook 'c++-mode-hook
+          '(lambda ()
+             (add-to-alist c-offsets-alist (innamespace . 0))))
+
 ;;; Interaction Lisp mode
 (add-hook 'lisp-interaction-mode-hook
 	  '(lambda ()
