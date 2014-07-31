@@ -8,7 +8,7 @@
 (defun simple-parse-assign (beg-sexp end-sexp)
   (save-excursion
     (down-list)
-    (flet ((even? (n) (eq (logand n 1) 0)))
+    (cl-flet ((even? (n) (eq (logand n 1) 0)))
       (loop with maxlen = 0
             with argc = 0
             with res = nil
