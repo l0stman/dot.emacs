@@ -3,6 +3,7 @@
 
 (declare-function paredit-forward "paredit" nil)
 (declare-function paredit-close-round "paredit" nil)
+(declare-function paredit-reindent-defun "paredit" nil)
 
 (defun simple-parse-assign (beg-sexp end-sexp)
   (save-excursion
