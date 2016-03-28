@@ -53,13 +53,8 @@
 ;;; Treat 'y' or <CR> as yes, 'n' as no.
 (fset 'yes-or-no-p 'y-or-n-p)
 
-;;;; Color theme
-(load-library "color-theme-djcb-dark")
-
-(eval-after-load "color-theme-djcb-dark"
-  '(progn
-     (color-theme-initialize)
-     (color-theme-djcb-dark)))
+;;;; Custom theme
+(load-theme 'dream t)
 
 ;;;; SLIME configuration for Common Lisp
 (defvar *slime-dir* (file-name-directory (locate-library "slime")))
@@ -268,6 +263,8 @@ works with macros."
       custom-file            (full-path "emacs-custom.el")
       backup-by-copying      t
       backup-directory-alist `((".*" . ,temporary-file-directory)))
+;;; Set the default font.
+(set-frame-font "Inconsolata-11" nil t)
 (load custom-file)
 
 (require 'keywiz)		    ; game to learn emacs key-bindings
