@@ -264,7 +264,7 @@ works with macros."
       backup-by-copying      t
       backup-directory-alist `((".*" . ,temporary-file-directory)))
 ;;; Set the default font.
-(set-frame-font "Inconsolata-11" nil t)
+(set-frame-font "Inconsolata-10" nil t)
 (load custom-file)
 
 (require 'keywiz)		    ; game to learn emacs key-bindings
