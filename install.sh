@@ -34,7 +34,10 @@ case $1 in
 esac
 
 case $2 in
-    ubuntu|freebsd) OSPARAMS="$2-params.el";;
+    ubuntu) OSPARAMS="ubuntu-params.el"
+            SBCL="/usr/bin/sbcl";;
+    freebsd) OSPARAMS="freebsd-params.el"
+             SBCL="/usr/local/bin/sbcl";;
     *) usage;;
 esac
 
@@ -53,5 +56,5 @@ emacs --batch -f batch-byte-compile lib/*.el
 cp -R lib "$EMACSDIR"
 rm -f lib/*.elc
 
-savecore /usr/bin/sbcl $CORE
+savecore $SBCL $CORE
 savecore $HOME/bin/sbcl $DEVCORE
