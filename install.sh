@@ -5,27 +5,14 @@ SLIME="$HOME/hacks/slime"
 CORE="${EMACSDIR}/sbcl.core-with-swank"
 DEVCORE="${EMACSDIR}/sbcl-devel.core-with-swank"
 
-case $1 in
-    T60) XMODMAPRC=xmodmaprc.T60;;
-    desktop) XMODMAPRC=xmodmaprc.desktop;;
-    *) echo "Usage: `basename $0` [T60 | desktop]"; exit 1;;
-esac
-
-if [ ! -d ${EMACSDIR} ]
-then
-	mkdir ${EMACSDIR}
-fi
-cp $XMODMAPRC ~/.Xmodmap
-cp dot.emacs ~/.emacs
-cp emacs-custom.el ${EMACSDIR}
-
-# Compile the library
-emacs --batch -f batch-byte-compile lib/*.el
-cp -R lib "$EMACSDIR"
-rm -f lib/*.elc
+usage()
+{
+    echo "Usage: `basename $0` [T60 | desktop] [ubuntu]"
+    exit 1
+}
 
 # Generate an image containing the Swank server for SBCL.
-savecore ()
+savecore()
 {
     local sbcl=$1
     local core=$2
@@ -35,5 +22,36 @@ savecore ()
 EOF
 }
 
-savecore /usr/local/bin/sbcl $CORE
+if [ $# -ne 2 ]
+then
+    usage
+fi
+
+case $1 in
+    T60) XMODMAPRC=xmodmaprc.T60;;
+    desktop) XMODMAPRC=xmodmaprc.desktop;;
+    *) usage;;
+esac
+
+case $2 in
+    ubuntu|freebsd) OSPARAMS="$2-params.el";;
+    *) usage;;
+esac
+
+if [ ! -d ${EMACSDIR} ]
+then
+    mkdir ${EMACSDIR}
+fi
+cp $XMODMAPRC ~/.Xmodmap
+cp dot.emacs ~/.emacs
+cp emacs-custom.el ${EMACSDIR}
+cp dream-theme.el ${EMACSDIR}
+cp $OSPARAMS lib/os-params.el
+
+# Compile the library
+emacs --batch -f batch-byte-compile lib/*.el
+cp -R lib "$EMACSDIR"
+rm -f lib/*.elc
+
+savecore /usr/bin/sbcl $CORE
 savecore $HOME/bin/sbcl $DEVCORE

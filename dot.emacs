@@ -10,11 +10,11 @@
   (dolist (fn args) (add-to-list lst fn)))
 
 (add-to-list* 'load-path
-	      *emacs-dir*
 	      (full-path "lib")
 	      (expand-file-name "~/hacks/slime"))
 
-(require 'utils)                   ; Some utility macros and functions
+(require 'os-params)               ; OS specific parameters
+(require 'utils)                   ; some utility macros and functions
 
 ;;;; Global key bindings
 (defkeys nil
@@ -65,7 +65,6 @@
 (defvar *slime-dir* (file-name-directory (locate-library "slime")))
 (defvar *sbcl-core* (full-path "sbcl.core-with-swank"))
 (defvar *sbcl-dev-core* (full-path "sbcl-devel.core-with-swank"))
-(defvar *hyperspec-dir* "/usr/local/share/doc/clisp-hyperspec/HyperSpec/")
 (defvar *fasls-dir* "/tmp/slime-fasls/")
 
 (make-directory *fasls-dir* t)
@@ -75,10 +74,10 @@
       slime-complete-symbol-function 'slime-fuzzy-complete-symbol
       slime-compile-file-options     `(:fasl-directory ,*fasls-dir*)
       slime-lisp-implementations
-      `((sbcl ("sbcl" "--noinform" "--core" ,*sbcl-core*)
+      `((sbcl (,*sbcl-exec* "--noinform" "--core" ,*sbcl-core*)
               :init (lambda (port-file enc)
                       (format "(swank:start-server %S)\n" port-file))
-              :env ("SBCL_HOME=/usr/local/lib/sbcl/"))
+              :env ((concat "SBCL_HOME=" *sbcl-home*)))
         (sbcl-devel (,(expand-file-name "~/bin/sbcl") "--noinform" "--core"
                      ,*sbcl-dev-core*)
                     :init (lambda (port-file enc)
@@ -258,7 +257,7 @@ works with macros."
 ;;;; Misc
 (when (eq window-system 'x)
   (setq browse-url-browser-function 'browse-url-generic
-        browse-url-generic-program "chrome")
+        browse-url-generic-program *browser-exec-name*)
   ;; start an emacs server
   (server-start))
 
