@@ -7,7 +7,7 @@ DEVCORE="${EMACSDIR}/sbcl-devel.core-with-swank"
 
 usage()
 {
-    echo "Usage: `basename $0` [T60 | desktop] [ubuntu]"
+    echo "Usage: `basename $0` [T60 | desktop | studio] [ubuntu | freebsd]"
     exit 1
 }
 
@@ -28,8 +28,7 @@ then
 fi
 
 case $1 in
-    T60) XMODMAPRC=xmodmaprc.T60;;
-    desktop) XMODMAPRC=xmodmaprc.desktop;;
+    T60|desktop|studio) XMODMAPRC=xmodmaprc.$1;;
     *) usage;;
 esac
 

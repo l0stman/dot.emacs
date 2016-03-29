@@ -1,0 +1,48 @@
+!
+! Emulate the Lisp Machine using dvorak keyboard.
+!
+! Swap Capslock and Escape.
+!
+remove lock = Caps_Lock
+keysym Escape = Caps_Lock
+keysym Caps_Lock = Escape
+add lock = Caps_Lock
+!
+! Alt, Altgr    -> Control
+! Win           -> Meta Left
+! Menu          -> Super
+! Control right -> Altgr
+! Control left  -> Hyper
+!
+clear control
+clear mod1
+clear mod4
+keysym Alt_L = Control_L
+keysym Alt_R = Control_R
+keysym Super_L = Meta_L
+keysym Menu = Super_R
+keysym Control_R = Alt_R
+keysym Control_L = Hyper_L
+add control = Control_L
+add control = Control_R
+add mod1 = Alt_R
+add mod1 = Meta_L
+add mod4 = Super_R
+add mod4 = Hyper_L
+!
+! Make it easy to type paretheses.
+! 9(   -> 9?
+! 0)   -> 0|
+! /?   -> ([
+! =+   -> )]
+! [{   -> \{
+! ]}   -> /}
+! \|   -> =+
+!
+keysym 9 = 9 question
+keysym 0 = 0 bar
+keysym slash = parenleft bracketleft
+keysym equal = parenright bracketright
+keysym bracketleft = backslash braceleft
+keysym bracketright = slash braceright
+keysym backslash = equal plus
