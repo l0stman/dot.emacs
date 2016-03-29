@@ -39,10 +39,10 @@ add mod4 = Hyper_L
 ! ]}   -> /}
 ! \|   -> =+
 !
-keysym 9 = 9 question
-keysym 0 = 0 bar
-keysym slash = parenleft bracketleft
-keysym equal = parenright bracketright
-keysym bracketleft = backslash braceleft
-keysym bracketright = slash braceright
-keysym backslash = equal plus
+keycode  18 = 9 question 9 question dead_grave NoSymbol dead_grave
+keycode  19 = 0 bar 0 bar
+keycode  34 = parenleft bracketleft parenleft bracketleft
+keycode  35 = parenright bracketright parenright bracketright
+keycode  20 = backslash braceleft backslash braceleft
+keycode  21 = slash braceright slash braceright dead_tilde NoSymbol dead_tilde
+keycode  51 = equal plus equal plus

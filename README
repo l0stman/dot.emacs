@@ -6,7 +6,9 @@ generates a core file containing the SLIME swank server for SBCL.
 Super modifiers.  It assumes a dvorak keyboard.  You should add the
 following lines in your .xinitrc:
 setxkbmap dvorak
-xmodmap ~/.xmodmaprc
+xmodmap ~/.Xmodmap
+[Note that Ubuntu doesn't read .Xmodmap at startup so we need to add the
+script "LoadUserXmap.py" to "Startup Applications."]
 * dot.emacs: the emacs startup file
 * lib: some emacs lisp libraries I use.
 * emacs-custom.el:  emacs customization file.

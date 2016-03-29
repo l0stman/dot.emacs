@@ -49,6 +49,10 @@ cp dot.emacs ~/.emacs
 cp emacs-custom.el ${EMACSDIR}
 cp dream-theme.el ${EMACSDIR}
 cp $OSPARAMS lib/os-params.el
+if [ $2 = "ubuntu" ]
+then
+    cp LoadUserXmap.py ~/bin
+fi
 
 # Compile the library
 emacs --batch -f batch-byte-compile lib/*.el
