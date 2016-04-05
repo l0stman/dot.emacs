@@ -120,7 +120,7 @@
 	       (paredit-mode +1)
 	       (define-key ,(symb name '-mode-map) (kbd "<tab>")
 		 (case ',name
-		   ((emacs-lisp lisp-interaction) 'lisp-complete-symbol)
+		   ((emacs-lisp lisp-interaction) 'completion-at-point)
 		   (lisp 'slime-complete-symbol)
 		   (slime-repl 'slime-indent-and-complete-symbol)
                    (otherwise 'dabbrev-expand))))))
