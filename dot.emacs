@@ -249,6 +249,12 @@ works with macros."
              (define-key octave-mode-map
                (kbd "<tab>") 'octave-complete-symbol)))
 
+;;; CSS mode
+(require 'rainbow-mode)
+(add-hook 'css-mode-hook
+          '(lambda ()
+             (rainbow-mode)))
+
 ;;;; Misc
 (when (eq window-system 'x)
   (setq browse-url-browser-function 'browse-url-generic
