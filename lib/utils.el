@@ -1,11 +1,11 @@
-(require 'cl)				; Common Lisp library
+(require 'cl-lib)				; Common Lisp library
 
 (defmacro defkeys (map &rest bindings)
   "Define the bindings represented as property list of keys and
 functions in the key mapping map (the global one if null)."
-  (eval-after-load "cl"
+  (eval-after-load "cl-lib"
     '`(progn
-	,@(loop for (key fn) on bindings by #'cddr
+	,@(cl-loop for (key fn) on bindings by #'cddr
 		collect (if map
                             `(define-key ,map (kbd ,key) ',fn)
                           `(global-set-key (kbd ,key) ',fn))))))
@@ -13,7 +13,7 @@ functions in the key mapping map (the global one if null)."
 (defmacro subskeys (map &rest funcs)
   "Replace in the keymap map the old definitions of functions
 with new ones represented as property list."
-  (eval-after-load "cl"
+  (eval-after-load "cl-lib"
     '`(progn
         ,@(loop for (old new) on funcs by #'cddr
                 collect `(substitute-key-definition ',old ',new ,map)))))
@@ -27,7 +27,7 @@ with new ones represented as property list."
 (defmacro add-to-alist (alist &rest bindings)
   "Add the entries to an association list if they aren't there
 yet.  Otherwise update the corresponding entries."
-  (let ((entry (gensym)))
+  (let ((entry (cl-gensym)))
    `(progn
       ,@(mapcar #'(lambda (bind)
                     `(let ((,entry (assq ',(car bind) ,alist)))
