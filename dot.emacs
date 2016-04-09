@@ -46,7 +46,8 @@
   "C-h" backward-delete-char-untabify
   "C-c k" join-line
   "C-c j" join-next-line
-  "C-c f" find-library)
+  "C-c f" find-library
+  "C-c c" compose-french)
 
 (define-key isearch-mode-map "\C-h" 'isearch-delete-char)
 

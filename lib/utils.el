@@ -41,6 +41,12 @@ yet.  Otherwise update the corresponding entries."
   (interactive "*")
   (join-line 1))
 
+(defun compose-french ()
+  "Compose a text in French."
+  (interactive "*")
+  (set-input-method 'latin-1-prefix)
+  (ispell-change-dictionary "francais"))
+
 (defun reply-mail (arg)
   "Insert an empty space between the quoted email you're replying
 to and your answer.  With a prefix argument, compose in French."
@@ -55,7 +61,6 @@ to and your answer.  With a prefix argument, compose in French."
         (insert "\n\n"))))
   (text-mode)
   (when arg
-    (set-input-method 'latin-1-prefix)
-    (ispell-change-dictionary "francais")))
+    (compose-french)))
 
 (provide 'utils)
