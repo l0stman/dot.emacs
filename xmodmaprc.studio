@@ -30,7 +30,7 @@ add mod1 = Meta_L
 add mod4 = Super_R
 add mod4 = Hyper_L
 !
-! Make it easy to type paretheses.
+! Make it easy to type parentheses.
 ! 9(   -> 9?
 ! 0)   -> 0|
 ! /?   -> ([
