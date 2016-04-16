@@ -131,7 +131,7 @@
 ;;; and turn on flyspell.
 (defvar *prog-mode-list*
   '(paredit c c++ sh awk mixal octave inferior-octave python inferior-python
-            java)
+            java js2)
   "List of programming mode names.")
 
 (dolist (name *prog-mode-list*)
@@ -255,6 +255,12 @@ works with macros."
 (add-hook 'css-mode-hook
           '(lambda ()
              (rainbow-mode)))
+
+;;; Javascript mode
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+(add-hook 'js2-mode-hook
+          '(lambda ()
+             (electric-pair-mode +1)))
 
 ;;;; Misc
 (when (eq window-system 'x)
