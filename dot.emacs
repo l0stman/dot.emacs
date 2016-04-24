@@ -97,8 +97,8 @@
 (require 'gitsum)
 
 ;;;; Paredit
-(autoload 'paredit-mode "paredit"
-  "Minor mode for pseudo-structurally editing Lisp code."
+(autoload 'enable-paredit-mode "paredit"
+  "Turn on pseudo-structural editing of Lisp code."
   t)
 
 (require 'lisp-indent)
