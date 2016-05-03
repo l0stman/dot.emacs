@@ -89,6 +89,16 @@
 (slime-setup '(slime-repl slime-autodoc slime-fuzzy slime-fancy-inspector
                           slime-indentation slime-presentations))
 
+;;; Configure package.
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/") t)
+(package-initialize)
+
+;;; Flycheck.
+(require 'flycheck)
+(global-flycheck-mode)
+
 ;;;; For editing scheme code.
 (require 'quack)
 
@@ -282,3 +292,4 @@ works with macros."
 (load custom-file)
 
 (require 'keywiz)		    ; game to learn emacs key-bindings
+
