@@ -97,7 +97,7 @@
 
 ;;; Flycheck.
 (require 'flycheck)
-(global-flycheck-mode)
+(add-hook 'after-init-hook #'global-flycheck-mode)
 
 ;;;; For editing scheme code.
 (require 'quack)
