@@ -280,7 +280,13 @@ works with macros."
 ;;; Python mode.
 (add-hook 'python-mode-hook
           '(lambda ()
-             (add-to-list 'company-backends 'company-jedi)))
+             (add-to-list 'company-backends 'company-jedi)
+             (electric-pair-mode +1)
+             (save-selected-window
+               (switch-to-buffer-other-window
+                (process-buffer
+                 (python-shell-get-or-create-process
+                  (python-shell-parse-command)))))))
 
 ;;;; Misc
 (when (eq window-system 'x)
