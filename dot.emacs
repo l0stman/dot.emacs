@@ -57,6 +57,16 @@
 ;;;; Custom theme
 (load-theme 'dream t)
 
+;;; Configure package.
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/") t)
+(package-initialize)
+
+;;; Company.
+(require 'company)
+(global-company-mode)
+
 ;;;; SLIME configuration for Common Lisp
 (defvar *slime-dir* (file-name-directory (locate-library "slime")))
 (defvar *sbcl-core* (full-path "sbcl.core-with-swank"))
@@ -88,12 +98,6 @@
 (require 'slime-autoloads)
 (slime-setup '(slime-repl slime-autodoc slime-fuzzy slime-fancy-inspector
                           slime-indentation slime-presentations))
-
-;;; Configure package.
-(require 'package)
-(add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/") t)
-(package-initialize)
 
 ;;; Flycheck.
 (require 'flycheck)
@@ -261,17 +265,22 @@ works with macros."
              (define-key octave-mode-map
                (kbd "<tab>") 'octave-complete-symbol)))
 
-;;; CSS mode
+;;; CSS mode.
 (require 'rainbow-mode)
 (add-hook 'css-mode-hook
           '(lambda ()
              (rainbow-mode)))
 
-;;; Javascript mode
+;;; Javascript mode.
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (add-hook 'js2-mode-hook
           '(lambda ()
              (electric-pair-mode +1)))
+
+;;; Python mode.
+(add-hook 'python-mode-hook
+          '(lambda ()
+             (add-to-list 'company-backends 'company-jedi)))
 
 ;;;; Misc
 (when (eq window-system 'x)
