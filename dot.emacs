@@ -214,17 +214,27 @@ works with macros."
                            (brace-list-close before)
                            (block-close . new-c-snug-do-while))))
 
-;;; C++ mode
+;;; C++ mode.
 (add-hook 'c++-mode-hook
           '(lambda ()
              (add-to-alist c-offsets-alist (innamespace . 0))))
 
-;;; Interaction Lisp mode
+;;; PHP mode.
+(c-add-style "php"
+             `("linux" (c-basic-offset . 4)))
+(add-hook 'php-mode-hook
+          '(lambda ()
+             (c-set-style "php")
+             (setq flycheck-phpcs-standard "PSR2")
+             (c-set-offset 'arglist-intro '+)
+             (c-set-offset 'arglist-close '0)))
+
+;;; Interaction Lisp mode.
 (add-hook 'lisp-interaction-mode-hook
 	  '(lambda ()
 	     (defkeys lisp-interaction-mode-map "C-m" eval-print-last-sexp)))
 
-;;; Make SLIME connect to lisp when opening a lisp file
+;;; Make SLIME connect to lisp when opening a lisp file.
 (add-hook 'slime-mode-hook
 	  '(lambda ()
 	     (unless (slime-connected-p)
