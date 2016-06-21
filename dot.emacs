@@ -316,7 +316,5 @@ works with macros."
 (set-frame-font "Inconsolata-10" nil t)
 (load custom-file)
 
-;;; Set default file permission.
-(set-default-file-modes #o644)
-
 (require 'keywiz)		    ; game to learn emacs key-bindings
+
