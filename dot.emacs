@@ -298,6 +298,10 @@ works with macros."
                  (python-shell-get-or-create-process
                   (python-shell-parse-command)))))))
 
+;;; Web mode
+(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.twig\\'" . web-mode))
+
 ;;;; Misc
 (when (eq window-system 'x)
   (setq browse-url-browser-function 'browse-url-generic
