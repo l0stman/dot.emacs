@@ -268,7 +268,7 @@ works with macros."
                            (defun-open after))))
 
 ;;; Octave mode
-(autoload 'octave-mode "octave-mode" nil t)
+(autoload 'octave-mode "octave" nil t)
 (push '("\\.m$" . octave-mode) auto-mode-alist)
 (add-hook 'octave-mode-hook
           '(lambda ()
