@@ -307,6 +307,9 @@ works with macros."
              (setq web-mode-markup-indent-offset 2
                    web-mode-code-indent-offset   2)))
 
+;;; Go mode
+(add-hook 'before-save-hook #'gofmt-before-save)
+
 ;;;; Misc
 (when (eq window-system 'x)
   (setq browse-url-browser-function 'browse-url-generic
