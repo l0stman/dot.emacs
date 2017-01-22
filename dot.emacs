@@ -307,7 +307,11 @@ works with macros."
              (setq web-mode-markup-indent-offset 2
                    web-mode-code-indent-offset   2)))
 
+;;; Objective-J mode.
+(require 'objj-mode)
+
 ;;; Go mode
+(setq gofmt-command "goimports")
 (add-hook 'before-save-hook #'gofmt-before-save)
 
 ;;;; Misc
