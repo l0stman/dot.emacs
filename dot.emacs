@@ -67,6 +67,10 @@
 (require 'company)
 (global-company-mode)
 
+;;; Ido.
+(require 'ido)
+(ido-mode t)
+
 ;;;; SLIME configuration for Common Lisp
 (defvar *slime-dir* (file-name-directory (locate-library "slime")))
 (defvar *sbcl-core* (full-path "sbcl.core-with-swank"))
