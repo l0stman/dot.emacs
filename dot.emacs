@@ -287,9 +287,7 @@ works with macros."
 
 ;;; Javascript mode.
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-(add-hook 'js2-mode-hook
-          '(lambda ()
-             (electric-pair-mode +1)))
+(add-hook 'js2-mode-hook '(lambda () (electric-pair-mode)))
 
 ;;; Python mode.
 (add-hook 'python-mode-hook
@@ -317,6 +315,7 @@ works with macros."
 ;;; Go mode
 (setq gofmt-command "goimports")
 (add-hook 'before-save-hook #'gofmt-before-save)
+(add-hook 'go-mode-hook '(lambda () (electric-pair-mode)))
 
 ;;;; Misc
 (when (eq window-system 'x)
