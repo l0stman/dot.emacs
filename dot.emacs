@@ -315,7 +315,19 @@ works with macros."
 ;;; Go mode
 (setq gofmt-command "goimports")
 (add-hook 'before-save-hook #'gofmt-before-save)
-(add-hook 'go-mode-hook '(lambda () (electric-pair-mode)))
+(add-hook 'go-mode-hook '(lambda ()
+                           (electric-pair-mode)
+                           (defkeys go-mode-map
+                             "C-t" transpose-sexps
+                             "C-M-t" transpose-chars
+                             "C-f" forward-sexp
+                             "C-M-f" forward-char
+                             "C-b" backward-sexp
+                             "C-M-b" backward-char
+                             "C-k" kill-sexp
+                             "C-M-k" paredit-kill
+                             "C-<backspace>" backward-kill-sexp)
+                           (flyspell-prog-mode)))
 
 ;;;; Misc
 (when (eq window-system 'x)
