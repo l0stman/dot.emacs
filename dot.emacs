@@ -43,6 +43,7 @@
   "C-m" reindent-then-newline-and-indent
   "C-w" backward-kill-word
   "C-x C-k" kill-region
+  "C-x g" magit-status
   "C-h" backward-delete-char-untabify
   "C-c k" join-line
   "C-c j" join-next-line
@@ -109,10 +110,6 @@
 
 ;;;; For editing scheme code.
 (require 'quack)
-
-;;;; Interface for the git version control system.
-(require 'git)
-(require 'gitsum)
 
 ;;;; Paredit
 (autoload 'enable-paredit-mode "paredit"
