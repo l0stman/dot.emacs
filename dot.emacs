@@ -135,7 +135,7 @@
 	    `(lambda ()
 	       (enable-paredit-mode)
                (defkeys ,(symb name '-mode-map)
-                 "<tab>" ,(case name
+                 "<tab>" ,(cl-case name
                             ((emacs-lisp lisp-interaction) 'completion-at-point)
                             (lisp 'slime-complete-symbol)
                             (slime-repl 'slime-indent-and-complete-symbol)
