@@ -134,13 +134,13 @@
   (add-hook (symb name '-mode-hook)
 	    `(lambda ()
 	       (enable-paredit-mode)
-               (defkeys ,(symb name '-mode-map)
-                 "<tab>" ,(cl-case name
-                            ((emacs-lisp lisp-interaction) 'completion-at-point)
-                            (lisp 'slime-complete-symbol)
-                            (slime-repl 'slime-indent-and-complete-symbol)
-                            (otherwise 'dabbrev-expand))
-                 "C-h" paredit-backward-delete))))
+               (defkeys ,(symb name '-mode-map) "C-h" paredit-backward-delete)
+               ,(let ((map (symb name '-mode-map)))
+                  (cl-case name
+                    ((emacs-lisp lisp-interaction)
+                     `(defkeys ,map "<tab>" completion-at-point))
+                    (lisp
+                     `(defkeys ,map "<tab>" slime-complete-symbol)))))))
 
 ;;;; Adding some hooks.
 ;;; Make it easy to navigate by expression for programming mode
