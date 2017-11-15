@@ -67,6 +67,11 @@
 ;;; Company.
 (require 'company)
 (global-company-mode)
+(defkeys company-active-map
+  "C-n" company-select-next
+  "C-p" company-select-previous
+  "C-d" company-show-doc-buffer
+  "M-." company-show-location)
 
 ;;; Ido.
 (require 'ido)
@@ -102,7 +107,8 @@
               (expand-file-name "contrib" *slime-dir*))
 (require 'slime-autoloads)
 (slime-setup '(slime-repl slime-autodoc slime-fuzzy slime-fancy-inspector
-                          slime-indentation slime-presentations))
+                          slime-indentation slime-presentations
+                          slime-fancy slime-company))
 
 ;;; Flycheck.
 (require 'flycheck)

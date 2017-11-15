@@ -17,6 +17,7 @@
  '(quack-programs
    (quote
     ("mzscheme -il r5rs" "bigloo" "csi" "csi -hygienic" "gosh" "gsi" "gsi ~~/syntax-case.scm -" "guile" "kawa" "loot" "mit-scheme" "mred -z" "mzscheme" "mzscheme -M errortrace" "mzscheme -il r6rs" "mzscheme -il typed-scheme" "mzscheme3m" "mzschemecgc" "rs" "scheme" "scheme48" "scsh" "sisc" "stklos" "sxi")))
+ '(slime-company-completion (quote fuzzy))
  '(tab-always-indent (quote complete)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
