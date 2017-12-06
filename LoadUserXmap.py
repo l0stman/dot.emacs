@@ -19,7 +19,7 @@ import os
 import sys
 import fcntl
 import dbus
-import gobject
+from gi.repository import GObject
 import time
 from dbus.mainloop.glib import DBusGMainLoop
 
@@ -89,5 +89,5 @@ system_bus.add_signal_receiver(handle_session, signal_name='PropertiesChanged', 
 session_bus.add_signal_receiver(handle_layout_switch, signal_name='ReSync', dbus_interface='com.canonical.Unity.Panel.Service')
 
 # Loop baby
-loop = gobject.MainLoop()
+loop = GObject.MainLoop()
 loop.run()
