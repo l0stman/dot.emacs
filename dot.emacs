@@ -77,7 +77,7 @@
 (require 'ido)
 (ido-mode t)
 
-;;;; SLIME configuration for Common Lisp
+;;;; SLIME configuration for Common Lisp.
 (defvar *slime-dir* (file-name-directory (locate-library "slime")))
 (defvar *sbcl-core* (full-path "sbcl.core-with-swank"))
 (defvar *sbcl-dev-core* (full-path "sbcl-devel.core-with-swank"))
@@ -315,7 +315,8 @@ works with macros."
 ;;; Objective-J mode.
 (require 'objj-mode)
 
-;;; Go mode
+;;; Go mode.
+(require 'company-go)
 (setq gofmt-command "goimports")
 (add-hook 'before-save-hook #'gofmt-before-save)
 (add-hook 'go-mode-hook '(lambda ()
