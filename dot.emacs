@@ -113,6 +113,9 @@
 ;;; Flycheck.
 (require 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
+(with-eval-after-load 'flycheck
+   (require 'flycheck-clang-analyzer)
+   (flycheck-clang-analyzer-setup))
 
 ;;;; For editing scheme code.
 (require 'quack)
