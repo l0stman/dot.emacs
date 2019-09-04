@@ -74,10 +74,10 @@
 (setq use-package-always-ensure t)
 
 ;;; Company.
-(require 'company)
-(require 'color)
-
-(let ((bg (face-attribute 'default :background)))
+(use-package company
+  :config
+  (require 'color)
+  (let ((bg (face-attribute 'default :background)))
     (custom-set-faces
      `(company-tooltip
        ((t (:inherit default :background "#121733"))))
@@ -85,14 +85,12 @@
      `(company-scrollbar-fg ((t (:background ,(color-lighten-name bg 5)))))
      `(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
      `(company-tooltip-common ((t (:inherit font-lock-constant-face))))))
-
-(global-company-mode)
-
-(defkeys company-active-map
-  "C-n" company-select-next
-  "C-p" company-select-previous
-  "C-d" company-show-doc-buffer
-  "M-." company-show-location)
+  (global-company-mode)
+  :bind (:map company-active-map
+              ("C-n" . company-select-next)
+              ("C-p" . company-select-previous)
+              ("C-d" . company-show-doc-buffer)
+              ("M-." . company-show-location)))
 
 ;;; Ido.
 (require 'ido)
