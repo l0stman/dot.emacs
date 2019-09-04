@@ -14,5 +14,8 @@
 (defvar *browser-exec-name* "chromium-browser"
   "Executable name of the default browser used.")
 
+(defvar *tmp-dir* (getenv "TMPDIR")
+  "Directory for temporary files.")
+
 (provide 'ubuntu-init)
 ;;; ubuntu-init ends here

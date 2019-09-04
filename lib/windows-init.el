@@ -7,5 +7,8 @@
           (file-name-as-directory "HyperSpec-7-0/HyperSpec"))
   "The Common Lisp ANSI-standard Hyperspec.")
 
+(defvar *tmp-dir* (getenv "TMP")
+  "Directory for temporary files.")
+
 (provide 'windows-init)
 ;;; windows-init ends here

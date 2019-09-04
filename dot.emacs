@@ -105,7 +105,7 @@
 (defvar *slime-dir* (file-name-directory (locate-library "slime")))
 (defvar *sbcl-core* (full-path "sbcl.core-with-swank"))
 (defvar *sbcl-dev-core* (full-path "sbcl-devel.core-with-swank"))
-(defvar *fasls-dir* "/tmp/slime-fasls/")
+(defvar *fasls-dir* (concat (file-name-as-directory *tmp-dir*) "fasls-dir"))
 
 (make-directory *fasls-dir* t)
 
