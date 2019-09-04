@@ -364,7 +364,7 @@ works with macros."
                            (flyspell-prog-mode)))
 
 ;;;; Misc
-(when (eq window-system 'x)
+(when window-system
   (setq browse-url-browser-function 'browse-url-generic
         browse-url-generic-program *browser-exec-name*)
   ;; start an emacs server
