@@ -383,9 +383,6 @@ works with macros."
       backup-directory-alist `((".*" . ,temporary-file-directory)))
 
 (set-default-coding-systems 'utf-8)
-
-;;; Set the default font.
-(set-frame-font "Inconsolata-10" nil t)
 (load custom-file)
 
 (require 'keywiz)		    ; game to learn emacs key-bindings
