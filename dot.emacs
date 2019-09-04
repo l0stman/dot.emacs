@@ -66,7 +66,19 @@
 
 ;;; Company.
 (require 'company)
+(require 'color)
+
+(let ((bg (face-attribute 'default :background)))
+    (custom-set-faces
+     `(company-tooltip
+       ((t (:inherit default :background "#121733"))))
+     `(company-scrollbar-bg ((t (:background ,(color-lighten-name bg 10)))))
+     `(company-scrollbar-fg ((t (:background ,(color-lighten-name bg 5)))))
+     `(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
+     `(company-tooltip-common ((t (:inherit font-lock-constant-face))))))
+
 (global-company-mode)
+
 (defkeys company-active-map
   "C-n" company-select-next
   "C-p" company-select-previous
