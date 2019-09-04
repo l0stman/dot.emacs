@@ -333,7 +333,7 @@ works with macros."
                    web-mode-code-indent-offset   2)))
 
 ;;; Objective-J mode.
-(require 'objj-mode)
+(use-package 'objj-mode)
 
 ;;; Go mode.
 (require 'company-go)
