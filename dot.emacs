@@ -340,13 +340,11 @@ works with macros."
     (jedi:setup)))
 
 ;;; Web mode
-(require 'web-mode)
-(add-to-list 'auto-mode-alist '("\\.twig\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.jinja\\'" . web-mode))
-(add-hook 'web-mode-hook
-          '(lambda ()
-             (setq web-mode-markup-indent-offset 2
-                   web-mode-code-indent-offset   2)))
+(use-package web-mode
+  :mode ("\\.twig\\'" "\\.jinja\\'")
+  :hook (web-mode . (lambda ()
+                      (setq web-mode-markup-indent-offset 2
+                            web-mode-code-indent-offset   2))))
 
 ;;; Objective-J mode.
 (require 'objj-mode)
