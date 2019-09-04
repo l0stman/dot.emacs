@@ -377,6 +377,9 @@ works with macros."
       custom-file            (full-path "emacs-custom.el")
       backup-by-copying      t
       backup-directory-alist `((".*" . ,temporary-file-directory)))
+
+(set-default-coding-systems 'utf-8)
+
 ;;; Set the default font.
 (set-frame-font "Inconsolata-10" nil t)
 (load custom-file)
