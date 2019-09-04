@@ -154,18 +154,11 @@
 (use-package quack)
 
 ;;;; Paredit
-(autoload 'enable-paredit-mode "paredit"
-  "Turn on pseudo-structural editing of Lisp code."
-  t)
-
-(require 'lisp-indent)
-(eval-after-load "paredit"
-  '(define-key paredit-mode-map (kbd "H-)") 'paredit-lisp-indent-assign))
-
-;;; Yaml
-(use-package yaml-mode
-  :mode (("\\.yaml$" . yaml-mode) ("\\.yml$" . yaml-mode)))
-
+(use-package paredit
+  :commands enable-paredit-mode
+  :init (require 'lisp-indent)
+  :bind (:map paredit-mode-map
+              ("H-)" . paredit-lisp-indent-assign)))
 
 (defvar *paredit-mode-list*
   '(lisp scheme emacs-lisp lisp-interaction slime-repl inferior-scheme)
