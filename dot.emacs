@@ -305,12 +305,9 @@ works with macros."
                            (defun-open after))))
 
 ;;; Octave mode
-(autoload 'octave-mode "octave" nil t)
-(push '("\\.m$" . octave-mode) auto-mode-alist)
-(add-hook 'octave-mode-hook
-          '(lambda ()
-             (define-key octave-mode-map
-               (kbd "<tab>") 'octave-complete-symbol)))
+(use-package octave
+  :mode ("\\.m$" . octave-mode)
+  :bind (:map octave-mode-map ("<tab>" . octave-complete-symbol)))
 
 ;;; CSS mode.
 (use-package rainbow-mode
