@@ -141,13 +141,14 @@
       `(,@(sbcl-implementations)
         (ccl (,*ccl-exec* "--terminal-encoding" "utf-8"))))
 
-
 ;;; Flycheck.
-(require 'flycheck)
-(add-hook 'after-init-hook #'global-flycheck-mode)
-(with-eval-after-load 'flycheck
-   (require 'flycheck-clang-analyzer)
-   (flycheck-clang-analyzer-setup))
+(use-package flycheck
+  :hook (after-init . global-flycheck-mode)
+  :config
+  (unless (eq system-type 'windows-nt)
+    (use-package flycheck-clang-analyzer
+      :config
+      (flycheck-clang-analyzer-setup))))
 
 ;;;; For editing scheme code.
 (use-package quack)
