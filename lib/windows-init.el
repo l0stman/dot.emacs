@@ -7,6 +7,9 @@
           (file-name-as-directory "HyperSpec-7-0/HyperSpec"))
   "The Common Lisp ANSI-standard Hyperspec.")
 
+(defvar *browser-exec-name* "firefox"
+  "Executable name of the default browser used.")
+
 (defvar *tmp-dir* (getenv "TMP")
   "Directory for temporary files.")
 
