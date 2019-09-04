@@ -177,6 +177,10 @@
                     (lisp
                      `(defkeys ,map "<tab>" slime-complete-symbol)))))))
 
+;;; Yaml
+(use-package yaml-mode
+  :mode (("\\.yaml$" . yaml-mode) ("\\.yml$" . yaml-mode)))
+
 ;;;; Adding some hooks.
 ;;; Make it easy to navigate by expression for programming mode
 ;;; and turn on flyspell.
