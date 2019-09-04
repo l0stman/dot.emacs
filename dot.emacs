@@ -137,7 +137,7 @@
    (flycheck-clang-analyzer-setup))
 
 ;;;; For editing scheme code.
-(require 'quack)
+(use-package quack)
 
 ;;;; Paredit
 (autoload 'enable-paredit-mode "paredit"
