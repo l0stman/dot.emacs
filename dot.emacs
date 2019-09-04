@@ -128,18 +128,31 @@
               (expand-file-name "contrib" *slime-dir*))
 
 (use-package slime-company)
-(require 'slime-autoloads)
-(slime-setup '(slime-repl slime-autodoc slime-fuzzy slime-fancy-inspector
-                          slime-indentation slime-presentations
-                          slime-fancy slime-company))
-
-(setq slime-net-coding-system        'utf-8-unix
-      common-lisp-hyperspec-root     *hyperspec-dir*
-      slime-complete-symbol-function 'slime-fuzzy-complete-symbol
-      slime-compile-file-options     `(:fasl-directory ,*fasls-dir*)
-      slime-lisp-implementations
-      `(,@(sbcl-implementations)
-        (ccl (,*ccl-exec* "--terminal-encoding" "utf-8"))))
+(use-package slime
+  :hook (slime-mode . (lambda ()
+                        ;; Make SLIME connect to lisp when opening a lisp file.
+	                (unless (slime-connected-p)
+	                  (save-excursion (slime)))
+                        (common-lisp-set-style 'modern)))
+  
+  :bind (:map slime-mode-map
+         ("C-c M-i" . slime-inspect-definition)
+         :map slime-repl-mode-map
+         ("C-c s" . slime-repl-next-matching-input)
+	 ("C-c r" . slime-repl-previous-matching-input)
+         ("C-c M-i" . slime-inspect-definition))
+  :init (require 'slime-autoloads)
+  :config
+  (slime-setup '(slime-repl slime-autodoc slime-fuzzy slime-fancy-inspector
+                            slime-indentation slime-presentations
+                            slime-fancy slime-company))
+  (setq slime-net-coding-system        'utf-8-unix
+        common-lisp-hyperspec-root     *hyperspec-dir*
+        slime-complete-symbol-function 'slime-fuzzy-complete-symbol
+        slime-compile-file-options     `(:fasl-directory ,*fasls-dir*)
+        slime-lisp-implementations
+        `(,@(sbcl-implementations)
+          (ccl (,*ccl-exec* "--terminal-encoding" "utf-8")))))
 
 ;;; Flycheck.
 (use-package flycheck
@@ -273,22 +286,6 @@ works with macros."
 (add-hook 'lisp-interaction-mode-hook
 	  '(lambda ()
 	     (defkeys lisp-interaction-mode-map "C-m" eval-print-last-sexp)))
-
-;;; Make SLIME connect to lisp when opening a lisp file.
-(add-hook 'slime-mode-hook
-	  '(lambda ()
-	     (unless (slime-connected-p)
-	       (save-excursion (slime)))
-             (common-lisp-set-style 'modern)
-             (defkeys slime-mode-map "C-c M-i" slime-inspect-definition)))
-
-;;; SLIME repl mode
-(add-hook 'slime-repl-mode-hook
-	  '(lambda ()
-	     (defkeys slime-repl-mode-map
-	       "C-c s" slime-repl-next-matching-input
-	       "C-c r" slime-repl-previous-matching-input
-               "C-c M-i" slime-inspect-definition)))
 
 ;;; MIXAL mode
 (require 'mixvm)
