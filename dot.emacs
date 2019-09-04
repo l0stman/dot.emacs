@@ -109,22 +109,19 @@
 
 (make-directory *fasls-dir* t)
 
-(setq slime-net-coding-system        'utf-8-unix
-      common-lisp-hyperspec-root     *hyperspec-dir*
-      slime-complete-symbol-function 'slime-fuzzy-complete-symbol
-      slime-compile-file-options     `(:fasl-directory ,*fasls-dir*)
-      slime-lisp-implementations
-      `((sbcl (,*sbcl-exec* "--noinform" "--core" ,*sbcl-core*)
-              :init (lambda (port-file enc)
-                      (format "(swank:start-server %S)\n" port-file))
-              :env ((concat "SBCL_HOME=" *sbcl-home*)))
-        (sbcl-devel (,(expand-file-name "~/bin/sbcl") "--noinform" "--core"
-                     ,*sbcl-dev-core*)
-                    :init (lambda (port-file enc)
-                            (format "(swank:start-server %S)\n" port-file))
-                    :env (,(concat "SBCL_HOME="
-                                   (expand-file-name "~/lib/sbcl"))))
-        (ccl ("ccl" "--terminal-encoding" "utf-8"))))
+(defsubst sbcl-implementations ()
+  "Return the list of SBCL implementations."
+  (unless (eq system-type 'windows-nt)
+    `((sbcl (,*sbcl-exec* "--noinform" "--core" ,*sbcl-core*)
+            :init (lambda (port-file enc)
+                    (format "(swank:start-server %S)\n" port-file))
+            :env ((concat "SBCL_HOME=" *sbcl-home*)))
+      (sbcl-devel (,(expand-file-name "~/bin/sbcl") "--noinform" "--core"
+                   ,*sbcl-dev-core*)
+                  :init (lambda (port-file enc)
+                          (format "(swank:start-server %S)\n" port-file))
+                  :env (,(concat "SBCL_HOME="
+                                 (expand-file-name "~/lib/sbcl")))))))
 
 (add-to-list* 'load-path
               *slime-dir*
@@ -133,6 +130,14 @@
 (slime-setup '(slime-repl slime-autodoc slime-fuzzy slime-fancy-inspector
                           slime-indentation slime-presentations
                           slime-fancy slime-company))
+
+(setq slime-net-coding-system        'utf-8-unix
+      common-lisp-hyperspec-root     *hyperspec-dir*
+      slime-complete-symbol-function 'slime-fuzzy-complete-symbol
+      slime-compile-file-options     `(:fasl-directory ,*fasls-dir*)
+      slime-lisp-implementations
+      `(,@(sbcl-implementations) (ccl ("ccl" "--terminal-encoding" "utf-8"))))
+
 
 ;;; Flycheck.
 (require 'flycheck)
