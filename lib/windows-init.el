@@ -13,5 +13,10 @@
 (defvar *tmp-dir* (getenv "TMP")
   "Directory for temporary files.")
 
+(defvar *ccl-exec* (concat (file-name-as-directory (getenv "HOME"))
+                           (file-name-as-directory "bin/ccl")
+                           "wx86cl64")
+  "Executable of the CCL compiler.")
+
 (provide 'windows-init)
 ;;; windows-init ends here

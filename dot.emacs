@@ -126,6 +126,8 @@
 (add-to-list* 'load-path
               *slime-dir*
               (expand-file-name "contrib" *slime-dir*))
+
+(use-package slime-company)
 (require 'slime-autoloads)
 (slime-setup '(slime-repl slime-autodoc slime-fuzzy slime-fancy-inspector
                           slime-indentation slime-presentations
@@ -136,7 +138,8 @@
       slime-complete-symbol-function 'slime-fuzzy-complete-symbol
       slime-compile-file-options     `(:fasl-directory ,*fasls-dir*)
       slime-lisp-implementations
-      `(,@(sbcl-implementations) (ccl ("ccl" "--terminal-encoding" "utf-8"))))
+      `(,@(sbcl-implementations)
+        (ccl (,*ccl-exec* "--terminal-encoding" "utf-8"))))
 
 
 ;;; Flycheck.

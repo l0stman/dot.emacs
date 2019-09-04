@@ -17,5 +17,8 @@
 (defvar *tmp-dir* (getenv "TMPDIR")
   "Directory for temporary files.")
 
+(defvar *ccl-exec* "ccl"
+  "Executable of the CCL compiler.")
+
 (provide 'freebsd-init)
 ;;; freebsd-init ends here
