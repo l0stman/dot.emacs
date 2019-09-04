@@ -305,10 +305,8 @@ works with macros."
                (kbd "<tab>") 'octave-complete-symbol)))
 
 ;;; CSS mode.
-(require 'rainbow-mode)
-(add-hook 'css-mode-hook
-          '(lambda ()
-             (rainbow-mode)))
+(use-package rainbow-mode
+  :hook css-mode)
 
 ;;; Javascript mode.
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
