@@ -367,6 +367,12 @@ works with macros."
          ("C-M-k" . paredit-kill)
          ("C-<backspace>" . backward-kill-sexp)))
 
+;;; Magit.
+(use-package magit)
+
+;;; SSH agent.
+(use-package ssh-agency)
+
 ;;;; Misc
 (when window-system
   (setq browse-url-browser-function 'browse-url-generic
