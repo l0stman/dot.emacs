@@ -4,9 +4,11 @@
   "Emacs personal root directory.")
 
 (defsubst full-path (file)
+  "Expand the FILE name into the root directory."
   (expand-file-name file *emacs-dir*))
 
 (defsubst add-to-list* (lst &rest args)
+  "Add to the list LST the elements in ARGS."
   (dolist (fn args) (add-to-list lst fn)))
 
 (add-to-list* 'load-path
