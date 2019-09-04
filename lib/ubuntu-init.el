@@ -1,6 +1,6 @@
 ;;; ubuntu-init --- OS specific parameters for Ubuntu.
 ;;; Commentary:
-;;; All the parameters and code specific to Ubuntu should be defined her.
+;;; All the parameters and code specific to Ubuntu should be defined here.
 ;;; Code:
 (defvar *hyperspec-dir* "/usr/share/doc/hyperspec/"
   "The Common Lisp ANSI-standard Hyperspec.")

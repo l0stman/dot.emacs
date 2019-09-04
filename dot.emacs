@@ -18,7 +18,8 @@
 ;;; OS specific parameters.
 (pcase system-type
   ('gnu/linux (require 'ubuntu-init))
-  ('berkeley-unix (require 'freebsd-init)))
+  ('berkeley-unix (require 'freebsd-init))
+  ('windows-nt (require 'windows-init)))
 
 (require 'utils)                   ; some utility macros and functions
 
