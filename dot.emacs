@@ -15,7 +15,11 @@
 	      (full-path "lib")
 	      (expand-file-name "~/hacks/slime"))
 
-(require 'os-params)               ; OS specific parameters
+;;; OS specific parameters.
+(pcase system-type
+  ('gnu/linux (require 'ubuntu-init))
+  ('berkeley-unix (require 'freebsd-init)))
+
 (require 'utils)                   ; some utility macros and functions
 
 ;;;; Global key bindings

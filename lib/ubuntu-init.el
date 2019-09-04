@@ -1,4 +1,7 @@
-;;; OS specific parameters for Ubuntu.
+;;; ubuntu-init --- OS specific parameters for Ubuntu.
+;;; Commentary:
+;;; All the parameters and code specific to Ubuntu should be defined her.
+;;; Code:
 (defvar *hyperspec-dir* "/usr/share/doc/hyperspec/"
   "The Common Lisp ANSI-standard Hyperspec.")
 
@@ -10,4 +13,6 @@
 
 (defvar *browser-exec-name* "chromium-browser"
   "Executable name of the default browser used.")
-(provide 'os-params)
+
+(provide 'ubuntu-init)
+;;; ubuntu-init ends here

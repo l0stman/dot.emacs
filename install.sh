@@ -34,10 +34,8 @@ case $1 in
 esac
 
 case $2 in
-    ubuntu) OSPARAMS="ubuntu-params.el"
-            SBCL="/usr/bin/sbcl";;
-    freebsd) OSPARAMS="freebsd-params.el"
-             SBCL="/usr/local/bin/sbcl";;
+    ubuntu) SBCL="/usr/bin/sbcl";;
+    freebsd) SBCL="/usr/local/bin/sbcl";;
     *) usage;;
 esac
 
@@ -49,7 +47,6 @@ cp $XMODMAPRC ~/.Xmodmap
 cp dot.emacs ~/.emacs
 cp emacs-custom.el ${EMACSDIR}
 cp dream-theme.el ${EMACSDIR}
-cp $OSPARAMS lib/os-params.el
 if [ $2 = "ubuntu" ]
 then
     cp LoadUserXmap.py ~/bin

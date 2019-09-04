@@ -1,4 +1,7 @@
-;;; OS specific parameters for FreeBSD.
+;;; freebsd-init --- OS specific init file for FreeBSD.
+;;; Commentary:
+;;; All the parameters and code specific to FreeBSD should be defined here.
+;;; Code:
 (defvar *hyperspec-dir* "/usr/local/share/doc/clisp-hyperspec/HyperSpec/"
   "The Common Lisp ANSI-standard Hyperspec.")
 
@@ -10,4 +13,6 @@
 
 (defvar *browser-exec-name* "chrome"
   "Executable name of the default browser used.")
-(provide 'os-params)
+
+(provide 'freebsd-init)
+;;; freebsd-init ends here
