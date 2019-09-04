@@ -4,7 +4,7 @@
 ;;; Code:
 (defvar *hyperspec-dir*
   (concat (file-name-as-directory (getenv "HOME"))
-          (file-name-as-directory "HyperSpec-7-0/HyperSpec"))
+          (file-name-as-directory "hyperspec/HyperSpec"))
   "The Common Lisp ANSI-standard Hyperspec.")
 
 (defvar *browser-exec-name* "firefox"
