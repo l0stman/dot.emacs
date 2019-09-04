@@ -314,8 +314,9 @@ works with macros."
   :hook css-mode)
 
 ;;; Javascript mode.
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-(add-hook 'js2-mode-hook '(lambda () (electric-pair-mode)))
+(use-package js2-mode
+  :mode "\\.js\\'"
+  :hook (js2-mode . electric-pair-mode))
 
 ;;; Python mode.
 (add-hook 'python-mode-hook
