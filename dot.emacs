@@ -92,10 +92,10 @@
      `(company-tooltip-common ((t (:inherit font-lock-constant-face))))))
   (global-company-mode)
   :bind (:map company-active-map
-              ("C-n" . company-select-next)
-              ("C-p" . company-select-previous)
-              ("C-d" . company-show-doc-buffer)
-              ("M-." . company-show-location)))
+         ("C-n" . company-select-next)
+         ("C-p" . company-select-previous)
+         ("C-d" . company-show-doc-buffer)
+         ("M-." . company-show-location)))
 
 ;;; Ido.
 (require 'ido)
@@ -171,7 +171,7 @@
   :commands enable-paredit-mode
   :init (require 'lisp-indent)
   :bind (:map paredit-mode-map
-              ("H-)" . paredit-lisp-indent-assign)))
+         ("H-)" . paredit-lisp-indent-assign)))
 
 (defvar *paredit-mode-list*
   '(lisp scheme emacs-lisp lisp-interaction slime-repl inferior-scheme)
@@ -350,22 +350,22 @@ works with macros."
 (require 'objj-mode)
 
 ;;; Go mode.
-(require 'company-go)
-(setq gofmt-command "goimports")
-(add-hook 'before-save-hook #'gofmt-before-save)
-(add-hook 'go-mode-hook '(lambda ()
-                           (electric-pair-mode)
-                           (defkeys go-mode-map
-                             "C-t" transpose-sexps
-                             "C-M-t" transpose-chars
-                             "C-f" forward-sexp
-                             "C-M-f" forward-char
-                             "C-b" backward-sexp
-                             "C-M-b" backward-char
-                             "C-k" kill-sexp
-                             "C-M-k" paredit-kill
-                             "C-<backspace>" backward-kill-sexp)
-                           (flyspell-prog-mode)))
+(use-package company-go
+  :config (setq gofmt-command "goimports")
+  :hook ((before-save . gofmt-before-save)
+         (go-mode . (lambda ()
+                      (electric-pair-mode)
+                      (flyspell-prog-mode))))
+  :bind (:map go-mode-map
+         ("C-t" . transpose-sexps)
+         ("C-M-t" . transpose-chars)
+         ("C-f" . forward-sexp)
+         ("C-M-f" . forward-char)
+         ("C-b" . backward-sexp)
+         ("C-M-b" . backward-char)
+         ("C-k" . kill-sexp)
+         ("C-M-k" . paredit-kill)
+         ("C-<backspace>" . backward-kill-sexp)))
 
 ;;;; Misc
 (when window-system
