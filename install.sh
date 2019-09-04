@@ -57,7 +57,7 @@ fi
 
 # Compile the library
 cp -R lib "$EMACSDIR"
-emacs --batch -f batch-byte-compile "$EMACSDIR"/lib/*.el
+emacs --batch -L "$EMACSDIR"/lib -f batch-byte-compile "$EMACSDIR"/lib/*.el
 
 savecore $SBCL $CORE
 savecore $HOME/bin/sbcl $DEVCORE
