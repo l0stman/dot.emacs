@@ -11,9 +11,6 @@
 (defvar *browser-exec-name* "C:/Program Files/Mozilla Firefox/firefox.exe"
   "Executable name of the default browser used.")
 
-(defvar *tmp-dir* (getenv "TMP")
-  "Directory for temporary files.")
-
 (defvar *ccl-exec* (concat (file-name-as-directory (getenv "HOME"))
                            (file-name-as-directory "bin/ccl")
                            "wx86cl64")

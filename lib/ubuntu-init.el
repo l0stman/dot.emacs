@@ -14,9 +14,6 @@
 (defvar *browser-exec-name* "chromium-browser"
   "Executable name of the default browser used.")
 
-(defvar *tmp-dir* (getenv "TMPDIR")
-  "Directory for temporary files.")
-
 (defvar *ccl-exec* "ccl"
   "Executable of the CCL compiler.")
 
