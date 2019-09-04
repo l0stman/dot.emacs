@@ -319,15 +319,25 @@ works with macros."
   :hook (js2-mode . electric-pair-mode))
 
 ;;; Python mode.
-(add-hook 'python-mode-hook
-          '(lambda ()
-             (add-to-list 'company-backends 'company-jedi)
-             (electric-pair-mode +1)
-             (save-selected-window
-               (switch-to-buffer-other-window
-                (process-buffer
-                 (python-shell-get-or-create-process
-                  (python-shell-parse-command)))))))
+(use-package python
+  :hook (python-mode . (lambda ()
+                         (add-to-list 'company-backends
+                                      '(company-jedi company-files))
+                         (py-autopep8-enable-on-save)
+                         (electric-pair-mode +1)
+                         (save-selected-window
+                           (switch-to-buffer-other-window
+                            (process-buffer
+                             (python-shell-get-or-create-process
+                              (python-shell-parse-command)))))))
+  :init
+  (use-package py-autopep8
+    :config (setq py-autopep8-options '("-aa")))
+  (use-package company-jedi
+    :config
+    (setq jedi:setup-keys      t
+          jedi:complete-on-dot t)
+    (jedi:setup)))
 
 ;;; Web mode
 (require 'web-mode)
