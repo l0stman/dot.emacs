@@ -102,7 +102,6 @@
 (ido-mode t)
 
 ;;;; SLIME configuration for Common Lisp.
-(defvar *slime-dir* (file-name-directory (locate-library "slime")))
 (defvar *sbcl-core* (full-path "sbcl.core-with-swank"))
 (defvar *sbcl-dev-core* (full-path "sbcl-devel.core-with-swank"))
 (defvar *fasls-dir* (concat temporary-file-directory "fasls-dir"))
@@ -123,10 +122,6 @@
                   :env (,(concat "SBCL_HOME="
                                  (expand-file-name "~/lib/sbcl")))))))
 
-(add-to-list* 'load-path
-              *slime-dir*
-              (expand-file-name "contrib" *slime-dir*))
-
 (use-package slime-company)
 (use-package slime
   :hook (slime-mode . (lambda ()
@@ -136,16 +131,20 @@
                         (common-lisp-set-style 'modern)))
   
   :bind (:map slime-mode-map
-         ("C-c M-i" . slime-inspect-definition)
-         :map slime-repl-mode-map
-         ("C-c s" . slime-repl-next-matching-input)
-	 ("C-c r" . slime-repl-previous-matching-input)
-         ("C-c M-i" . slime-inspect-definition))
+              ("C-c M-i" . slime-inspect-definition)
+              :map slime-repl-mode-map
+              ("C-c s" . slime-repl-next-matching-input)
+	      ("C-c r" . slime-repl-previous-matching-input)
+              ("C-c M-i" . slime-inspect-definition))
   :init (require 'slime-autoloads)
   :config
   (slime-setup '(slime-repl slime-autodoc slime-fuzzy slime-fancy-inspector
                             slime-indentation slime-presentations
                             slime-fancy slime-company))
+  (let ((slime-dir (file-name-directory (locate-library "slime"))))
+    (add-to-list* 'load-path
+                  slime-dir
+                  (expand-file-name "contrib" slime-dir)))
   (setq slime-net-coding-system        'utf-8-unix
         common-lisp-hyperspec-root     *hyperspec-dir*
         slime-complete-symbol-function 'slime-fuzzy-complete-symbol
