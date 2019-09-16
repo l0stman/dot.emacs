@@ -323,6 +323,7 @@ works with macros."
                          (add-to-list 'company-backends
                                       '(company-jedi company-files))
                          (py-autopep8-enable-on-save)
+                         (jedi:setup)
                          (electric-pair-mode +1)
                          (save-selected-window
                            (switch-to-buffer-other-window
@@ -335,8 +336,7 @@ works with macros."
   (use-package company-jedi
     :config
     (setq jedi:setup-keys      t
-          jedi:complete-on-dot t)
-    (jedi:setup)))
+          jedi:complete-on-dot t)))
 
 ;;; Web mode
 (use-package web-mode
