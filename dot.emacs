@@ -336,7 +336,10 @@ works with macros."
   (use-package company-jedi
     :config
     (setq jedi:setup-keys      t
-          jedi:complete-on-dot t)))
+          jedi:complete-on-dot t))
+  (use-package pyvenv
+    :init
+    (add-hook 'pyvenv-post-activate-hooks #'pyvenv-restart-python)))
 
 ;;; Web mode
 (use-package web-mode
