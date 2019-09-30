@@ -52,6 +52,16 @@ then
     cp LoadUserXmap.py ~/bin
 fi
 
+lc=`xrdb -query | sort -b | join - Xresources | wc -l`
+if [ $lc -eq 0 ]
+then
+    cat Xresources >> ~/.Xresources
+    xrdb -merge Xresources
+else
+    echo "WARNING: Some emacs resources are already defined. Please merge \
+'Xresources' manually with '~/.Xresources'".
+fi
+
 # Compile the library
 cp -R lib "$EMACSDIR"
 emacs --batch -L "$EMACSDIR"/lib -f batch-byte-compile "$EMACSDIR"/lib/*.el
