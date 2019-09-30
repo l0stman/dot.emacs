@@ -1,12 +1,11 @@
 This is my emacs startup file and some tweaking:
 * README: this file.
-* install.sh: install the different configurations files.  It also
-generates a core file containing the SLIME swank server for SBCL.
-* xmodmaprc: emulate the Lisp Machine keyboard enabling Hyper and
-Super modifiers.  It assumes a dvorak keyboard.  You should add the
-following lines in your .xinitrc:
-setxkbmap dvorak
-xmodmap ~/.Xmodmap
+* install.bat: install the different configurations files under Windows 10.
+* install.sh: install the different configurations files on *nix systems.
+  It also generates a core file containing the SLIME swank server for SBCL.
+* xmodmaprc*: xmodmap files that emulate the Lisp Machine keyboard for various
+  machines. They enable Hyper and Super modifiers and also assumes a dvorak
+  keyboard.
 [Note that Ubuntu doesn't read .Xmodmap at startup so we need to add the
 script "LoadUserXmap.py" to "Startup Applications."]
 * dot.emacs: the emacs startup file
