@@ -11,7 +11,7 @@
 (defvar *sbcl-exec* "/usr/bin/sbcl"
   "Executable of the SBCL compiler.")
 
-(defvar *browser-exec-name* "chromium-browser"
+(defvar *browser-exec-name* "firefox"
   "Executable name of the default browser used.")
 
 (defvar *ccl-exec* "ccl"
