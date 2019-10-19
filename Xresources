@@ -3,4 +3,4 @@ Emacs.font: Inconsolata:style=Medium
 Emacs.fullscreen: fullheight
 Emacs.menuBar: off
 Emacs.toolBar: off
-Emacs.verticalScrollbars: off
+Emacs.verticalScrollBars: off
