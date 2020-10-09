@@ -7,7 +7,7 @@ This is my emacs startup file and some tweaking:
   machines. They enable Hyper and Super modifiers and also assumes a dvorak
   keyboard.
 [Note that Ubuntu doesn't read .Xmodmap at startup so we need to add the
-script "LoadUserXmap.py" to "Startup Applications."]
+script "loadxkm" to "Startup Applications."]
 * dot.emacs: the emacs startup file
 * lib: some emacs lisp libraries I use.
 * emacs-custom.el:  emacs customization file.

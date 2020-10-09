@@ -1,0 +1,3 @@
+#!/bin/sh
+
+/usr/bin/xkbcomp ~/.xkb/symbols/dvorak.xkm $DISPLAY

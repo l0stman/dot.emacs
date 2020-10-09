@@ -4,6 +4,7 @@ EMACSDIR=$HOME/.emacs.d
 SLIME="$HOME/hacks/slime"
 CORE="${EMACSDIR}/sbcl.core-with-swank"
 DEVCORE="${EMACSDIR}/sbcl-devel.core-with-swank"
+XKBDIR=$HOME/.xkb/symbols
 
 usage()
 {
@@ -39,17 +40,18 @@ case $2 in
     *) usage;;
 esac
 
-if [ ! -d ${EMACSDIR} ]
-then
-    mkdir ${EMACSDIR}
-fi
-cp $XMODMAPRC ~/.Xmodmap
+install -d ${EMACSDIR}
 cp dot.emacs ~/.emacs
-cp emacs-custom.el ${EMACSDIR}
-cp dream-theme.el ${EMACSDIR}
+install -m 644 emacs-custom.el dream-theme.el ${EMACSDIR}
 if [ $2 = "ubuntu" ]
 then
-    cp LoadUserXmap.py ~/bin
+    mkdir -p ${XKBDIR}
+    setxkbmap dvorak
+    xmodmap ${XMODMAPRC}
+    xkbcomp -xkm $DISPLAY ${XKBDIR}/dvorak.xkm
+    install loadxkm ~/bin
+else
+    cp ${XMODMAPRC} ~/.Xmodmap
 fi
 
 lc=`xrdb -query | sort -b | join - Xresources | wc -l`
