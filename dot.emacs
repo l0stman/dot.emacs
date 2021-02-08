@@ -51,6 +51,7 @@
   "C-w" backward-kill-word
   "C-x C-k" kill-region
   "C-x g" magit-status
+  "C-x a" org-agenda
   "C-h" backward-delete-char-untabify
   "C-c k" join-line
   "C-c j" join-next-line
@@ -228,6 +229,186 @@
             '(lambda ()
                (refill-mode -1)
                (auto-fill-mode 1))))
+
+;;; Org mode
+(setq org-startup-indented               t
+      org-bullets-bullet-list            '(" ")
+      org-ellipsis                       "⤵"
+      org-pretty-entities                t
+      org-hide-emphasis-markers          t
+      org-agenda-block-separator         ""
+      org-fontify-whole-heading-line     t
+      org-fontify-done-headline          t
+      org-fontify-quote-and-verse-blocks t)
+
+
+
+(let ((bg-white           "#fbf8ef")
+      (bg-dark            "#1c1e1f")
+      (fg-white           "#ffffff")
+      (dark-cyan          "#008b8b")
+      (dark-red           "#8c3400")
+      (slate              "#8FA1B3")
+      (keyword            "#f92672")
+      (comment            "#525254")
+      (builtin            "#fd971f")
+      (doc                "#727280")
+      (gray               "#bbb")
+      (et-font            "EtBembo")
+      (sans-mono-font     "Souce Code Pro")
+      (serif-mono-font    "Verily Serif Mono"))
+  (add-hook 'org-mode-hook
+            `(lambda ()
+               (refill-mode -1)
+               (auto-fill-mode 1)
+               (variable-pitch-mode 1)
+               (setq org-todo-keyword-faces
+                     `(("⮞" . org-warning)
+                       ("✔" . (:foreground ,,dark-cyan :weight bold))
+                       ("✘" . (:foreground ,,dark-red :weight bold))
+                       ("⏲" . (:foreground "steel blue":weight bold))))))
+  (custom-theme-set-faces
+   'user
+   `(variable-pitch
+     ((t (:family ,et-font
+                  :background nil
+                  :height 1.1))))
+   `(org-document-title
+     ((t (:inherit nil
+                   :family ,et-font
+                   :height 1.4
+                   :foreground ,gray
+                   :underline nil))))
+   `(org-document-info
+     ((t (:height 0.9
+                  :slant italic))))
+   `(org-level-1
+     ((t (:inherit nil
+                   :family ,et-font
+                   :height 1.2
+                   :weight normal
+                   :slant normal
+                   :foreground ,keyword))))
+   `(org-level-2
+     ((t (:inherit nil
+                   :family ,et-font
+                   :weight normal
+                   :height 1.1
+                   :slant italic
+                   :foreground ,gray))))
+   `(org-level-3
+     ((t (:inherit nil
+                   :family ,et-font
+                   :weight normal
+                   :slant italic
+                   :height 1.0
+                   :foreground ,gray))))
+   `(org-level-4
+     ((t (:inherit nil
+                   :family ,et-font
+                   :weight normal
+                   :slant italic
+                   :height 1.0
+                   :foreground ,gray))))
+   `(org-level-5
+     ((t nil)))
+   `(org-level-6
+     ((t nil)))
+   `(org-level-7
+     ((t nil)))
+   `(org-level-8
+     ((t nil)))
+   `(org-headline-done
+     ((t (:family ,et-font
+                  :strike-through t))))
+   `(org-quote
+     ((t nil)))
+   `(org-block
+     ((t (:background ,bg-dark))))
+   `(org-block-begin-line
+     ((t (:background nil
+                      :height 0.8
+                      :family ,sans-mono-font
+                      :foreground ,slate))))
+   `(org-block-end-line
+     ((t (:background nil
+                      :height 0.8
+                      :family ,sans-mono-font
+                      :foreground ,slate))))
+   `(org-document-info-keyword
+     ((t (:height 0.8
+                  :foreground ,comment))))
+   `(org-link
+     ((t (:underline t
+                     :weight normal
+                     :foreground ,slate))))
+   `(org-special-keyword
+     ((t (:family ,sans-mono-font
+                  :height 0.8))))
+   `(org-todo
+     ((t (:foreground ,builtin
+                      :background ,bg-dark))))
+   `(org-done
+     ((t (:inherit variable-pitch
+                   :foreground ,dark-cyan
+                   :background ,bg-dark))))
+   `(org-agenda-current-time
+     ((t (:foreground ,slate))))
+   `(org-hide
+     ((t (:foreground ,bg-white))))
+   `(org-indent
+     ((t (:inherit (org-hide fixed-pitch)))))
+   `(org-time-grid
+     ((t (:foreground ,comment))))
+   `(org-warning
+     ((t (:foreground ,builtin))))
+   `(org-date
+     ((t (:family ,sans-mono-font
+                  :height 0.8))))
+   `(org-agenda-structure
+     ((t (:height 1.3
+                  :foreground ,doc
+                  :weight normal
+                  :inherit variable-pitch))))
+   `(org-agenda-date
+     ((t (:inherit variable-pitch
+                   :height 1.1))))
+   `(org-agenda-date-today
+     ((t (:height 1.5
+                  :foreground ,keyword
+                  :inherit variable-pitch))))
+   `(org-agenda-date-weekend
+     ((t (:inherit org-agenda-date))))
+   `(org-scheduled
+     ((t (:foreground ,gray))))
+   `(org-upcoming-deadline
+     ((t (:foreground ,keyword))))
+   `(org-scheduled-today
+     ((t (:foreground ,fg-white))))
+   `(org-scheduled-previously
+     ((t (:foreground ,slate))))
+   `(org-agenda-done
+     ((t (:inherit nil
+                   :strike-through t
+                   :foreground ,doc))))
+   `(org-ellipsis
+     ((t (:underline nil
+                     :foreground ,comment))))
+   `(org-tag
+     ((t (:foreground ,doc))))
+   `(org-table
+     ((t (:family ,serif-mono-font
+                  :height 0.9
+                  :background ,bg-white))))
+   `(org-code
+     ((t (:inherit nil
+                   :family ,serif-mono-font
+                   :foreground ,comment
+                   :height 0.9))))))
+
+(use-package org-bullets
+    :config
+    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
 ;;; CC mode
 (autoload 'plunder-mode "plunder"
