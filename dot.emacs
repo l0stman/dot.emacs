@@ -456,12 +456,12 @@ works with macros."
 (c-add-style "php"
              `("linux" (c-basic-offset . 4)))
 
-(add-hook 'php-mode-hook
-          '(lambda ()
-             (c-set-style "php")
-             (setq flycheck-phpcs-standard "PSR2")
-             (c-set-offset 'arglist-intro '+)
-             (c-set-offset 'arglist-close '0)))
+(use-package php-mode
+  :hook  (php-mode . (lambda ()
+                       (c-set-style "php")
+                       (setq flycheck-phpcs-standard "PSR2")
+                       (c-set-offset 'arglist-intro '+)
+                       (c-set-offset 'arglist-close '0))))
 
 ;;; Interaction Lisp mode.
 (add-hook 'lisp-interaction-mode-hook
