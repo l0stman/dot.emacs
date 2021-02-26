@@ -17,5 +17,8 @@
 (defvar *ccl-exec* "ccl"
   "Executable of the CCL compiler.")
 
+(require 'python)
+(setq python-shell-interpreter "python3")
+
 (provide 'ubuntu-init)
 ;;; ubuntu-init ends here

@@ -455,6 +455,7 @@ works with macros."
 ;;; PHP mode.
 (c-add-style "php"
              `("linux" (c-basic-offset . 4)))
+
 (add-hook 'php-mode-hook
           '(lambda ()
              (c-set-style "php")
