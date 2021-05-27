@@ -557,6 +557,14 @@ works with macros."
 ;;; SSH agent.
 (use-package ssh-agency)
 
+;;; Editor that provides modern IDE features for OCaml64.
+(use-package merlin
+  :config
+  (use-package merlin-company)
+  (setq merlin-command *ocaml-merlin*)
+  :hook ((tuareg-mode . merlin-mode)
+         (caml-mode . merlin-mode)))
+
 ;;;; Misc
 (when window-system
   (setq browse-url-browser-function 'browse-url-generic

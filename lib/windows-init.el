@@ -16,5 +16,8 @@
                            "wx86cl64")
   "Executable of the CCL compiler.")
 
+(defvar *ocaml-merlin* "c:/OCaml64/home/pc/.opam/4.12.0+mingw64c/bin/ocamlmerlin.exe"
+  "The path to merlin.")
+
 (provide 'windows-init)
 ;;; windows-init ends here
