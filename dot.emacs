@@ -563,7 +563,10 @@ works with macros."
   (use-package merlin-company)
   (setq merlin-command *ocaml-merlin*)
   :hook ((tuareg-mode . merlin-mode)
-         (caml-mode . merlin-mode)))
+         (caml-mode . merlin-mode)
+         (merlin-mode . (lambda ()
+                          (electric-pair-mode)
+                          (flyspell-prog-mode)))))
 
 ;;;; Misc
 (when window-system
