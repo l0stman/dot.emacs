@@ -179,7 +179,7 @@
   "Insert STR with face FACE."
   (put-text-property (point)
 		     (progn
-		       (mapcar 'insert str)
+		       (mapc 'insert str)
 		       (point))
 		     'face face))
 
