@@ -334,9 +334,10 @@ newline cleanups are done if appropriate; see the variable `c-cleanup-list'."
                (funcall bpf)))))))
 
 (defsubst insert-blank ()
-  (when (and (looking-at "[^ \t\n]")
-             (looking-back "[^ \t\n]"))
-    (insert ?\ )))
+  (cl-flet ((non-blankp (c) (and (/= c ?\ ) (/= c ?\t) (/= c ?\n))))
+    (when (and (non-blankp (char-before))
+               (non-blankp (char-after)))
+      (insert ?\ ))))
 
 (defsubst sexp-endp ()
   (save-excursion (forward-sexp) (point)))
