@@ -58,9 +58,9 @@
        ;; Extract the frame position from the marker.
        gud-last-frame
        (cons (substring gud-mixvm-marker-acc (match-beginning 1) (match-end 1))
-             (string-to-int (substring gud-mixvm-marker-acc
-                                       (match-beginning 2)
-                                       (match-end 2))))
+             (string-to-number (substring gud-mixvm-marker-acc
+                                          (match-beginning 2)
+                                          (match-end 2))))
 
        ;; Append any text before the marker to the output we're going
        ;; to return - we don't include the marker in this text.
