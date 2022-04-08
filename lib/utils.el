@@ -15,7 +15,7 @@ functions in the key mapping map (the global one if null)."
 with new ones represented as property list."
   (eval-after-load "cl-lib"
     '`(progn
-        ,@(loop for (old new) on funcs by #'cddr
+        ,@(cl-loop for (old new) on funcs by #'cddr
                 collect `(substitute-key-definition ',old ',new ,map)))))
 
 (defun symb (&rest args)
