@@ -73,7 +73,7 @@
 (require 'timer)
 
 (eval-when-compile
-  (require 'cl))
+  (require 'cl-lib))
 
 (require 'gamegrid)
 
@@ -213,7 +213,7 @@ to pause keywiz and enter a recursive edit in the *scratch* buffer."
     (if (and (not rescan) keywiz-cached-commands)
 	(progn (setq commands keywiz-cached-commands)
 	       (message "Finding all key bindings...cached (use C-u to rescan)"))
-      (do-all-symbols (sym)
+      (cl-do-all-symbols (sym)
 	(when (and (commandp sym)
 		   (not (memq sym '(self-insert-command
 				    digit-argument undefined))))
@@ -290,7 +290,7 @@ will return to keywiz.  This allows you to try out a command."))
 	       (keywiz-random keywiz-right-phrases)
 	       "  The answer is: "
 	       (mapconcat 'key-description (cadr key) ", "))
-	      (incf score))
+	      (cl-incf score))
 	     ((setq quit (and (member input '([?q] [q]))
 			      (y-or-n-p "Do you want to quit? "))))
 	     ((member input '([?r] [r]))
@@ -306,7 +306,7 @@ will return to keywiz.  This allows you to try out a command."))
 		     (get-buffer-create "*scratch*"))
 		    (recursive-edit)))
 		(timer-activate timer)
-		(incf start-time (- (keywiz-float-time) timeout-start))))
+		(cl-incf start-time (- (keywiz-float-time) timeout-start))))
 	     (t
 	      (keywiz-insert-with-face
 	       'keywiz-wrong-face
