@@ -504,7 +504,7 @@ works with macros."
   :hook (python-mode . (lambda ()
                          (add-to-list 'company-backends
                                       '(company-jedi company-files))
-                         (py-autopep8-enable-on-save)
+                         (py-autopep8-mode)
                          (jedi:setup)
                          (electric-pair-mode +1)
                          (save-selected-window
