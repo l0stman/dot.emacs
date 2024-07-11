@@ -1,12 +1,12 @@
 ;;; mixvm.el --- mdk's mixvm / Emacs gud interaction
-;; Copyright (C) 2001 Free Software Foundation, Inc.
-     
+;; Copyright (C) 2001, 2019 Free Software Foundation, Inc.
+
 ;; Author: Philip Ellis King <pking@pdq.net>
 ;; Maintainer: Philip Ellis King <pking@pdq.net>
 ;; Created: 12 Feb 2001
 ;; Version: 0.2
 ;; Keywords: tools
-     
+
 
 ;;; Commentary:
 ;; mixvm.el provides an interface between mdk's mixvm and Emacs,
