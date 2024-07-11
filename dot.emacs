@@ -219,16 +219,16 @@
 
 ;;; Text mode
 (add-hook 'text-mode-hook
-          '(lambda ()
-             (refill-mode 1)
-             (flyspell-mode 1)))
+          #'(lambda ()
+              (refill-mode 1)
+              (flyspell-mode 1)))
 
 ;;; Latex and HTML mode
 (dolist (name '(latex html))
   (add-hook (symb name '-mode-hook)
-            '(lambda ()
-               (refill-mode -1)
-               (auto-fill-mode 1))))
+            #'(lambda ()
+                (refill-mode -1)
+                (auto-fill-mode 1))))
 
 ;;; Org mode
 (setq org-startup-indented               t
@@ -416,10 +416,10 @@
   t)
 
 (add-hook 'c-initialization-hook
-          '(lambda ()
-             (defkeys c-mode-base-map
-               "C-m" c-context-line-break
-               "C-c RET" c-macro-expand)))
+          #'(lambda ()
+              (defkeys c-mode-base-map
+                       "C-m" c-context-line-break
+                       "C-c RET" c-macro-expand)))
 
 (defun new-c-snug-do-while (syntax pos)
   "This function is a modified version of `c-snug-do-while' that
@@ -433,24 +433,24 @@ works with macros."
       '(before after))))
 
 (add-hook 'c-mode-common-hook
-          '(lambda ()
-             (c-set-style "bsd")
-             (c-toggle-auto-newline)
-             (plunder-mode +1)
-             (add-to-list* 'c-cleanup-list
-                           'comment-close-slash
-                           'brace-else-brace
-                           'brace-elseif-brace)
-             (add-to-alist c-hanging-braces-alist
-                           (class-open after)
-                           (class-close before)
-                           (brace-list-close before)
-                           (block-close . new-c-snug-do-while))))
+          #'(lambda ()
+              (c-set-style "bsd")
+              (c-toggle-auto-newline)
+              (plunder-mode +1)
+              (add-to-list* 'c-cleanup-list
+                            'comment-close-slash
+                            'brace-else-brace
+                            'brace-elseif-brace)
+              (add-to-alist c-hanging-braces-alist
+                            (class-open after)
+                            (class-close before)
+                            (brace-list-close before)
+                            (block-close . new-c-snug-do-while))))
 
 ;;; C++ mode.
 (add-hook 'c++-mode-hook
-          '(lambda ()
-             (add-to-alist c-offsets-alist (innamespace . 0))))
+          #'(lambda ()
+              (add-to-alist c-offsets-alist (innamespace . 0))))
 
 ;;; PHP mode.
 (c-add-style "php"
@@ -465,25 +465,25 @@ works with macros."
 
 ;;; Interaction Lisp mode.
 (add-hook 'lisp-interaction-mode-hook
-	  '(lambda ()
-	     (defkeys lisp-interaction-mode-map "C-m" eval-print-last-sexp)))
+	  #'(lambda ()
+	      (defkeys lisp-interaction-mode-map "C-m" eval-print-last-sexp)))
 
 ;;; MIXAL mode
 (require 'mixvm)
 
 (add-hook 'mixal-mode-hook
-          '(lambda ()
-             (defkeys mixal-mode-map
-               "C-h" backward-delete-char-untabify
-               "C-m" newline-and-indent
-               "C-j" newline
-               "H-h o" mixal-describe-operation-code)))
+          #'(lambda ()
+              (defkeys mixal-mode-map
+                       "C-h" backward-delete-char-untabify
+                       "C-m" newline-and-indent
+                       "C-j" newline
+                       "H-h o" mixal-describe-operation-code)))
 
 ;;; awk mode
 (add-hook 'awk-mode-hook
-          '(lambda ()
-             (add-to-alist c-hanging-braces-alist
-                           (defun-open after))))
+          #'(lambda ()
+              (add-to-alist c-hanging-braces-alist
+                            (defun-open after))))
 
 ;;; Octave mode
 (use-package octave
