@@ -273,7 +273,7 @@
    'user
    `(variable-pitch
      ((t (:family ,et-font
-                  :background nil
+                  :background unspecified
                   :height 1.1))))
    `(org-document-title
      ((t (:inherit nil
@@ -328,12 +328,12 @@
    `(org-block
      ((t (:background ,bg-dark))))
    `(org-block-begin-line
-     ((t (:background nil
+     ((t (:background unspecified
                       :height 0.8
                       :family ,sans-mono-font
                       :foreground ,slate))))
    `(org-block-end-line
-     ((t (:background nil
+     ((t (:background unspecified
                       :height 0.8
                       :family ,sans-mono-font
                       :foreground ,slate))))

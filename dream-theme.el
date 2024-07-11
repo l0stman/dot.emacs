@@ -72,26 +72,26 @@
     `(header-line ((t (:box (:color ,dt-bg-1 :line-width 2)
 			:weight bold :foreground ,dt-blue-1
 			:background ,dt-green-4))))
-    `(highlight ((t (:weight bold :underline t :background nil
+    `(highlight ((t (:weight bold :underline t :background unspecified
 		      :foreground ,dt-orange))))
     `(hover-highlight ((t (:underline t :foreground nil :background ,dt-green))))
     '(match ((t (:weight bold))))
     `(menu ((t (:background ,dt-bg+3))))
-    `(mode-line ((t (:foreground nil :background ,dt-bg+2
+    `(mode-line ((t (:foreground unspecified :background ,dt-bg+2
 		      :box (:color ,dt-bg+3 :line-width 2)))))
     `(mode-line-inactive ((t  (:inherit mode-line :foreground ,dt-bg-3 :background ,dt-bg+3))))
     '(mouse ((t (:inherit dt-foreground))))
     '(paren ((t (:inherit dt-lowlight-1))))
     '(trailing-whitespace ((t (:inherit font-lock-warning))))
-    `(link ((t (:foreground ,dt-blue-3 :background nil :underline t))))
+    `(link ((t (:foreground ,dt-blue-3 :background unspecified :underline t))))
     `(border ((t (:background ,dt-bg))))
     `(button ((t (:foreground ,dt-yellow :background ,dt-blue-5
 		   :weight bold :underline t))))
     `(cursor ((t (:background ,dt-cyan :foreground ,dt-magenta))))
     `(minibuffer-prompt ((t (:foreground ,dt-red :weight bold :background ,dt-bg-1))))
-    `(region ((t (:foreground nil :background ,dt-bg+4))))
+    `(region ((t (:foreground unspecified :background ,dt-bg+4))))
     `(scroll-bar ((t (:background ,dt-bg+2))))
-    `(secondary-selection ((t (:foreground nil :background ,dt-bg+2))))
+    `(secondary-selection ((t (:foreground unspecified :background ,dt-bg+2))))
     `(tool-bar ((t (:background ,dt-bg+2))))
 
     ;; ace
@@ -168,9 +168,9 @@
     '(info-header-xref ((t (:inherit info-xref))))
     `(info-menu-star ((t (:foreground ,dt-orange :weight normal))))
     `(info-menu-5 ((t (:inherit info-menu-star))))
-    `(info-title-1 ((t (:foreground ,dt-blue :background nil
+    `(info-title-1 ((t (:foreground ,dt-blue :background unspecified
 			 :weight bold :height 1.2))))
-    `(info-title-2 ((t (:foreground ,dt-blue :background nil
+    `(info-title-2 ((t (:foreground ,dt-blue :background unspecified
 			 :weight bold :height 1.1))))
     `(info-menu-header ((t (:weight normal :foreground ,dt-blue :height 1.2))))
     '(info-node ((t (:weight bold))))
@@ -224,7 +224,7 @@
     ;; show-paren
     `(show-paren-mismatch ((t (:foreground ,dt-cyan :background ,dt-green
 				:weight bold :underline t))))
-    `(show-paren-match ((t (:foreground ,nil :background ,dt-bg-1
+    `(show-paren-match ((t (:foreground unspecified :background ,dt-bg-1
 			     :underline t :weight normal))))
 
     ;; sunrise commander
