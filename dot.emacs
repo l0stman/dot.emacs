@@ -266,7 +266,9 @@
                      `(("⮞" . org-warning)
                        ("✔" . (:foreground ,,dark-cyan :weight bold))
                        ("✘" . (:foreground ,,dark-red :weight bold))
-                       ("⏲" . (:foreground "steel blue":weight bold))))))
+                       ("⏲" . (:foreground "steel blue":weight bold))))
+               (setq org-todo-keywords
+                     '((sequence "⮞" "⏲" "|" "✔" "✘")))))
   (custom-theme-set-faces
    'user
    `(variable-pitch
