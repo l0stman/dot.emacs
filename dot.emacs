@@ -1,5 +1,6 @@
 ;;;; -*-Emacs-Lisp-*-
 
+;;; Code:
 (defvar *emacs-dir* (expand-file-name "~/.emacs.d")
   "Emacs personal root directory.")
 
@@ -239,9 +240,8 @@
       org-agenda-block-separator         ""
       org-fontify-whole-heading-line     t
       org-fontify-done-headline          t
-      org-fontify-quote-and-verse-blocks t)
-
-
+      org-fontify-quote-and-verse-blocks t
+      org-todo-keywords                  '((sequence "⮞" "⏲" "|" "✔" "✘")))
 
 (let ((bg-white           "#fbf8ef")
       (bg-dark            "#1c1e1f")
@@ -266,9 +266,7 @@
                      `(("⮞" . org-warning)
                        ("✔" . (:foreground ,,dark-cyan :weight bold))
                        ("✘" . (:foreground ,,dark-red :weight bold))
-                       ("⏲" . (:foreground "steel blue":weight bold))))
-               (setq org-todo-keywords
-                     '((sequence "⮞" "⏲" "|" "✔" "✘")))))
+                       ("⏲" . (:foreground "steel blue":weight bold))))))
   (custom-theme-set-faces
    'user
    `(variable-pitch
