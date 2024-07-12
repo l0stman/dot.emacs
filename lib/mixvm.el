@@ -29,6 +29,15 @@
 (require 'gud)
 (provide 'mixvm)
 
+(declare-function gud-print     "gud" (arg))
+(declare-function gud-finish    "gud" (arg))
+(declare-function gud-cont      "gud" (arg))
+(declare-function gud-stepi     "gud" (arg))
+(declare-function gud-next      "gud" (arg))
+(declare-function gud-step      "gud" (arg))
+(declare-function gud-remove    "gud" (arg))
+(declare-function gud-break     "gud" (arg))
+
 ;;; History of argument lists passed to mixvm.
 (defvar gud-mixvm-history nil)
 
@@ -98,7 +107,7 @@
   (save-excursion
     (let* ((buf (find-file-noselect file)))
       (set-buffer buf)
-      (when (boundp 'gud-make-debug-menu)
+      (when (fboundp 'gud-make-debug-menu)
 	(gud-make-debug-menu))
       buf)))
 
