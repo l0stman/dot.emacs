@@ -266,7 +266,16 @@
                      `(("⮞" . org-warning)
                        ("✔" . (:foreground ,,dark-cyan :weight bold))
                        ("✘" . (:foreground ,,dark-red :weight bold))
-                       ("⏲" . (:foreground "steel blue":weight bold))))))
+                       ("⏲" . (:foreground "steel blue":weight bold))))
+               (when (string-match-p "-todo\.org$" (buffer-name))
+                 (org-agenda-file-to-front)
+                 (save-selected-window (org-agenda-list)))))
+  (add-hook 'kill-buffer-hook
+            #'(lambda ()
+                (when (string-match-p "-todo\.org$" (buffer-name))
+                  (ignore-errors
+                    (org-remove-file)
+                    (org-agenda-redo-all t)))))
   (custom-theme-set-faces
    'user
    `(variable-pitch
