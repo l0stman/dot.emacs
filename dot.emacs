@@ -475,7 +475,7 @@ works with macros."
 ;;; Interaction Lisp mode.
 (add-hook 'lisp-interaction-mode-hook
 	  #'(lambda ()
-	      (defkeys lisp-interaction-mode-map "C-m" eval-print-last-sexp)))
+	      (defkeys paredit-mode-map "C-m" eval-print-last-sexp)))
 
 ;;; MIXAL mode
 (require 'mixvm)
