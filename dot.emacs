@@ -577,6 +577,11 @@ works with macros."
                           (electric-pair-mode)
                           (flyspell-prog-mode)))))
 
+;;; Markdown.
+(use-package markdown-mode
+  :ensure t
+  :mode ("\\.md\\'" . markdown-mode))
+
 ;;;; Misc
 (when window-system
   (setq browse-url-browser-function 'browse-url-generic
